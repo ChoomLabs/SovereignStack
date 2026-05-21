@@ -6,7 +6,7 @@ A curated directory of open-source, decentralized, and self-hostable tools desig
 
 🌟 Mission
 
-We believe that renting your digital life from corporations is a vulnerability. **SovereignStack** provides a plethera of a curated path to independence, offering a directory of tools that prioritize:
+We believe that renting your digital life from corporations is a vulnerability. **SovereignStack** provides a curated path to independence, offering a directory of tools that prioritize:
 
 - **Open Source:** Code you can inspect, audit, and modify.
 - **Privacy-First:** Tools that minimize data collection by default.
