@@ -1,0 +1,2006 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SovereignStack — Own Your Digital Life</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --neon: #39ff14; --neon-dim: #1aab00;
+    --neon-glow: rgba(57,255,20,0.18); --neon-glow-strong: rgba(57,255,20,0.35);
+    --bg: #080a06; --bg-card: #0d110b; --bg-card-hover: #111808;
+    --border: rgba(57,255,20,0.15);
+    --text: #e8f5e4; --text-muted: #6a8060; --text-dim: #3a5030;
+
+    /* ── CYBERPUNK PALETTE ── */
+    --cyan:           #00f5ff;
+    --cyan-dim:       #009aaa;
+    --cyan-glow:      rgba(0,245,255,0.18);
+    --cyan-glow-str:  rgba(0,245,255,0.38);
+    --cyan-border:    rgba(0,245,255,0.18);
+
+    --magenta:        #ff2d9b;
+    --magenta-dim:    #aa1060;
+    --magenta-glow:   rgba(255,45,155,0.18);
+    --magenta-glow-str: rgba(255,45,155,0.38);
+    --magenta-border: rgba(255,45,155,0.2);
+
+    --violet:         #7b2fff;
+    --violet-dim:     #4a10b0;
+    --violet-glow:    rgba(123,47,255,0.18);
+    --violet-glow-str:rgba(123,47,255,0.38);
+    --violet-border:  rgba(123,47,255,0.2);
+
+    --amber:          #ffb700;
+    --amber-dim:      #a07000;
+    --amber-glow:     rgba(255,183,0,0.18);
+    --amber-glow-str: rgba(255,183,0,0.38);
+    --amber-border:   rgba(255,183,0,0.2);
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; overflow-x: hidden; }
+  body::before { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.08) 2px,rgba(0,0,0,0.08) 4px); pointer-events:none; z-index:999; }
+  body::after { content:''; position:fixed; inset:0; background-image:linear-gradient(rgba(57,255,20,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,255,0.018) 1px,transparent 1px); background-size:60px 60px; pointer-events:none; z-index:0; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:0 3rem; height:64px; background:rgba(8,10,6,0.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--border); }
+  .nav-logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .logo-mark { width:32px; height:32px; border:1.5px solid var(--neon); border-radius:6px; display:flex; align-items:center; justify-content:center; box-shadow:0 0 12px var(--neon-glow-strong),inset 0 0 8px var(--neon-glow); animation:pulse-glow 3s ease-in-out infinite; }
+  .logo-mark svg { width:16px; height:16px; }
+  .nav-wordmark { font-family:'Space Mono',monospace; font-size:13px; font-weight:700; color:var(--neon); letter-spacing:0.08em; text-transform:uppercase; }
+  .nav-links { display:flex; align-items:center; gap:2rem; list-style:none; }
+  .nav-links a { color:var(--text-muted); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:0.04em; transition:color 0.2s; }
+  .nav-links a:hover { color:var(--neon); }
+  .nav-cta { font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--bg); background:var(--neon); border:none; padding:8px 18px; border-radius:4px; cursor:pointer; letter-spacing:0.06em; text-transform:uppercase; text-decoration:none; transition:box-shadow 0.2s; }
+  .nav-cta:hover { box-shadow:0 0 20px var(--neon-glow-strong); }
+
+  /* HERO */
+  .hero { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; padding:120px 2rem 80px; }
+  .hero-eyebrow { font-family:'Space Mono',monospace; font-size:11px; font-weight:700; color:var(--neon); letter-spacing:0.2em; text-transform:uppercase; margin-bottom:24px; display:flex; align-items:center; gap:10px; }
+  .hero-eyebrow::before,.hero-eyebrow::after { content:''; display:block; width:40px; height:1px; background:var(--neon-dim); }
+  .hero-title { font-size:clamp(3rem,8vw,6.5rem); font-weight:800; line-height:1; letter-spacing:-0.03em; margin-bottom:16px; color:var(--text); }
+  .hero-title span { color:var(--neon); text-shadow:0 0 40px var(--neon-glow-strong); }
+  .hero-sub { font-size:1.05rem; color:var(--text-muted); max-width:560px; line-height:1.7; margin-bottom:40px; }
+  .hero-badges { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .badge { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.1em; text-transform:uppercase; color:var(--neon-dim); border:1px solid rgba(57,255,20,0.2); padding:5px 12px; border-radius:2px; }
+
+  /* QUOTE */
+  .quote-wrap { position:relative; z-index:1; max-width:1280px; margin:0 auto; padding:0 2rem 60px; }
+  .quote-inner { background:rgba(57,255,20,0.04); border:1px solid rgba(57,255,20,0.12); border-left:3px solid var(--neon); border-radius:8px; padding:28px 36px; position:relative; }
+  .quote-inner.dim { background:rgba(57,255,20,0.025); border-left-color:var(--neon-dim); }
+  .quote-mark { font-family:'Space Mono',monospace; font-size:72px; line-height:0.6; color:var(--neon); opacity:0.12; position:absolute; top:20px; left:24px; pointer-events:none; }
+  .quote-text { font-size:1rem; font-style:italic; color:var(--text-muted); line-height:1.75; padding-left:20px; margin-bottom:14px; }
+  .quote-attr { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.14em; text-transform:uppercase; color:var(--neon-dim); padding-left:20px; }
+  .quote-attr span { color:var(--text-dim); }
+
+  /* SECTION */
+  .section { position:relative; z-index:1; max-width:1280px; margin:0 auto; padding:0 2rem 80px; }
+  .section-header { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:20px; padding-bottom:20px; border-bottom:1px solid var(--border); }
+  .section-label { font-family:'Space Mono',monospace; font-size:10px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--neon-dim); margin-bottom:8px; }
+  .section-title { font-size:1.7rem; font-weight:700; letter-spacing:-0.02em; color:var(--text); }
+  .section-count { font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); letter-spacing:0.05em; }
+
+  /* CAROUSEL CONTROLS */
+  .carousel-controls {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .carousel-progress {
+    font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim);
+    letter-spacing:0.08em; margin-right:auto;
+  }
+  .carousel-dots { display:flex; gap:5px; align-items:center; }
+  .carousel-dot {
+    width:5px; height:5px; border-radius:50%;
+    background:var(--text-dim); cursor:pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+  }
+  .carousel-dot.active {
+    background:var(--neon); transform:scale(1.5);
+    box-shadow:0 0 6px var(--neon-glow-strong);
+  }
+  .carousel-btn {
+    width:36px; height:36px;
+    border:1px solid var(--border); border-radius:6px;
+    background:var(--bg-card); color:var(--neon);
+    font-size:15px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.18s, border-color 0.18s, box-shadow 0.18s, opacity 0.18s;
+    font-family:'Space Mono',monospace; line-height:1;
+    flex-shrink:0;
+  }
+  .carousel-btn:hover:not(:disabled) {
+    background:var(--bg-card-hover); border-color:rgba(57,255,20,0.5);
+    box-shadow:0 0 14px var(--neon-glow);
+  }
+  .carousel-btn:disabled { opacity:0.2; cursor:not-allowed; }
+
+  /* CAROUSEL TRACK */
+  .carousel-outer {
+    position:relative; border:1px solid var(--border); border-radius:12px; overflow:hidden;
+  }
+  /* left/right fade edges */
+  .carousel-outer::before,
+  .carousel-outer::after {
+    content:''; position:absolute; top:0; bottom:0; width:48px; z-index:2; pointer-events:none;
+  }
+  .carousel-outer::before { left:0; background:linear-gradient(to right, var(--bg-card) 0%, transparent 100%); border-radius:12px 0 0 12px; }
+  .carousel-outer::after  { right:0; background:linear-gradient(to left, var(--bg-card) 0%, transparent 100%); border-radius:0 12px 12px 0; }
+
+  .carousel-track {
+    display:flex; gap:0;
+    overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none; -ms-overflow-style:none;
+    background:var(--border); /* gap colour between cards */
+  }
+  .carousel-track::-webkit-scrollbar { display:none; }
+
+  /* CARD */
+  .card {
+    flex:0 0 380px;
+    scroll-snap-align:start;
+    background:var(--bg-card); padding:28px;
+    display:flex; flex-direction:column; gap:14px;
+    text-decoration:none; color:inherit;
+    transition:background 0.2s; position:relative;
+    border-right:1px solid var(--border);
+  }
+  .card:last-child { border-right:none; }
+  .card:hover { background:var(--bg-card-hover); }
+  .card:hover .card-arrow { opacity:1; transform:translate(2px,-2px); }
+  .card:hover .card-icon-wrap { box-shadow:0 0 20px var(--neon-glow); border-color:rgba(57,255,20,0.4); }
+
+  .card-top { display:flex; align-items:flex-start; justify-content:space-between; }
+  .card-icon-wrap { width:44px; height:44px; border-radius:8px; border:1px solid rgba(57,255,20,0.2); background:rgba(57,255,20,0.06); display:flex; align-items:center; justify-content:center; font-size:22px; transition:box-shadow 0.2s, border-color 0.2s; }
+  .card-arrow { color:var(--neon); font-size:18px; opacity:0; transition:opacity 0.2s, transform 0.2s; line-height:1; }
+  .card-name { font-size:1.05rem; font-weight:700; color:var(--text); letter-spacing:-0.01em; margin-bottom:4px; display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .card-tag { font-family:'Space Mono',monospace; font-size:9px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--neon-dim); background:rgba(57,255,20,0.07); border:1px solid rgba(57,255,20,0.15); padding:2px 7px; border-radius:2px; }
+  .card-url { font-family:'Space Mono',monospace; font-size:10px; color:var(--text-dim); letter-spacing:0.02em; margin-bottom:8px; }
+  .card-desc { font-size:0.87rem; color:var(--text-muted); line-height:1.65; }
+
+  /* STATS */
+  .card-stats { display:flex; gap:16px; align-items:center; padding:10px 0; border-top:1px solid rgba(57,255,20,0.07); border-bottom:1px solid rgba(57,255,20,0.07); flex-wrap:wrap; }
+  .stat { display:flex; flex-direction:column; gap:2px; }
+  .stat-val { font-family:'Space Mono',monospace; font-size:12px; font-weight:700; color:var(--neon); }
+  .stat-label { font-family:'Space Mono',monospace; font-size:8px; letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim); }
+  .stat-div { width:1px; height:26px; background:rgba(57,255,20,0.1); flex-shrink:0; }
+
+  .card-footer { margin-top:auto; padding-top:14px; border-top:1px solid rgba(57,255,20,0.07); display:flex; gap:8px; flex-wrap:wrap; }
+  .pill { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-dim); border:1px solid rgba(57,255,20,0.1); padding:3px 8px; border-radius:2px; }
+
+  /* ── QUIZ SECTION ── */
+  .quiz-trigger-wrap {
+    position:relative; z-index:1;
+    max-width:1280px; margin:0 auto;
+    padding:0 2rem 60px;
+  }
+  .quiz-trigger-inner {
+    background:rgba(57,255,20,0.03);
+    border:1px solid rgba(57,255,20,0.14);
+    border-radius:12px;
+    padding:40px 48px;
+    display:flex; align-items:center; justify-content:space-between; gap:32px;
+    position:relative; overflow:hidden;
+  }
+  /* animated corner brackets */
+  .quiz-trigger-inner::before,
+  .quiz-trigger-inner::after {
+    content:''; position:absolute;
+    width:20px; height:20px;
+    border-color:var(--neon); border-style:solid;
+    opacity:0.4;
+    transition:opacity 0.3s;
+  }
+  .quiz-trigger-inner::before { top:12px; left:12px; border-width:2px 0 0 2px; border-radius:2px 0 0 0; }
+  .quiz-trigger-inner::after  { bottom:12px; right:12px; border-width:0 2px 2px 0; border-radius:0 0 2px 0; }
+  .quiz-trigger-inner:hover::before,
+  .quiz-trigger-inner:hover::after { opacity:1; }
+
+  .quiz-trigger-left { flex:1; }
+  .quiz-trigger-label {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--neon-dim);
+    margin-bottom:10px;
+  }
+  .quiz-trigger-title {
+    font-size:1.55rem; font-weight:800; letter-spacing:-0.02em;
+    color:var(--text); margin-bottom:10px; line-height:1.2;
+  }
+  .quiz-trigger-title span { color:var(--neon); }
+  .quiz-trigger-desc {
+    font-size:0.87rem; color:var(--text-muted); line-height:1.65; max-width:480px;
+  }
+  .quiz-trigger-right { flex-shrink:0; display:flex; flex-direction:column; align-items:center; gap:12px; }
+  .quiz-score-preview {
+    width:90px; height:90px; border-radius:50%;
+    border:2px solid rgba(57,255,20,0.2);
+    background:rgba(57,255,20,0.04);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:2px;
+  }
+  .quiz-score-preview-val {
+    font-family:'Space Mono',monospace; font-size:22px; font-weight:700;
+    color:var(--text-dim); line-height:1;
+  }
+  .quiz-score-preview-label {
+    font-family:'Space Mono',monospace; font-size:7px;
+    letter-spacing:0.1em; text-transform:uppercase; color:var(--text-dim);
+  }
+  .quiz-open-btn {
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--bg); background:var(--neon); border:none;
+    padding:12px 28px; border-radius:4px; cursor:pointer;
+    transition:box-shadow 0.2s, transform 0.15s;
+    white-space:nowrap;
+  }
+  .quiz-open-btn:hover {
+    box-shadow:0 0 24px var(--neon-glow-strong);
+    transform:translateY(-1px);
+  }
+  .quiz-meta-row {
+    font-family:'Space Mono',monospace; font-size:9px;
+    color:var(--text-dim); letter-spacing:0.08em; text-align:center;
+  }
+
+  /* OVERLAY */
+  .quiz-overlay {
+    position:fixed; inset:0; z-index:1000;
+    background:rgba(4,6,3,0.97);
+    backdrop-filter:blur(12px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none;
+    transition:opacity 0.3s;
+    overflow-y:auto; padding:24px;
+  }
+  .quiz-overlay.open { opacity:1; pointer-events:all; }
+
+  .quiz-modal {
+    width:100%; max-width:680px;
+    background:var(--bg-card);
+    border:1px solid rgba(57,255,20,0.2);
+    border-radius:16px; overflow:hidden;
+    position:relative;
+    transform:translateY(20px);
+    transition:transform 0.35s cubic-bezier(.22,1,.36,1);
+  }
+  .quiz-overlay.open .quiz-modal { transform:translateY(0); }
+
+  /* progress bar */
+  .quiz-progress-bar-wrap {
+    height:3px; background:rgba(57,255,20,0.08); width:100%;
+  }
+  .quiz-progress-bar {
+    height:100%; background:var(--neon);
+    box-shadow:0 0 8px var(--neon-glow-strong);
+    transition:width 0.4s cubic-bezier(.22,1,.36,1);
+    width:0%;
+  }
+
+  .quiz-modal-header {
+    padding:28px 32px 0;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .quiz-step-label {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-dim);
+  }
+  .quiz-close-btn {
+    background:none; border:1px solid rgba(57,255,20,0.15); border-radius:4px;
+    color:var(--text-muted); font-size:14px; cursor:pointer;
+    width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+    transition:border-color 0.2s, color 0.2s;
+    font-family:'Space Mono',monospace;
+  }
+  .quiz-close-btn:hover { border-color:rgba(57,255,20,0.4); color:var(--neon); }
+
+  .quiz-modal-body { padding:24px 32px 32px; }
+
+  .quiz-q-number {
+    font-family:'Space Mono',monospace; font-size:9px;
+    letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--text-dim); margin-bottom:10px;
+  }
+  .quiz-question {
+    font-size:1.15rem; font-weight:700; color:var(--text);
+    line-height:1.4; margin-bottom:24px; letter-spacing:-0.01em;
+  }
+
+  .quiz-options { display:flex; flex-direction:column; gap:10px; }
+  .quiz-option {
+    display:flex; align-items:flex-start; gap:14px;
+    background:rgba(57,255,20,0.03);
+    border:1px solid rgba(57,255,20,0.1);
+    border-radius:8px; padding:14px 16px;
+    cursor:pointer; transition:background 0.18s, border-color 0.18s, box-shadow 0.18s;
+    text-align:left; width:100%;
+  }
+  .quiz-option:hover {
+    background:rgba(57,255,20,0.07);
+    border-color:rgba(57,255,20,0.35);
+    box-shadow:0 0 12px var(--neon-glow);
+  }
+  .quiz-option.selected {
+    background:rgba(57,255,20,0.10);
+    border-color:var(--neon);
+    box-shadow:0 0 16px var(--neon-glow);
+  }
+  .quiz-option-key {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    color:var(--neon-dim);
+    border:1px solid rgba(57,255,20,0.2); border-radius:3px;
+    width:22px; height:22px; min-width:22px;
+    display:flex; align-items:center; justify-content:center;
+    transition:background 0.18s, color 0.18s;
+    margin-top:1px;
+  }
+  .quiz-option.selected .quiz-option-key {
+    background:var(--neon); color:var(--bg); border-color:var(--neon);
+  }
+  .quiz-option-text {
+    font-size:0.88rem; color:var(--text-muted); line-height:1.5;
+  }
+  .quiz-option.selected .quiz-option-text { color:var(--text); }
+
+  .quiz-nav {
+    display:flex; align-items:center; justify-content:space-between;
+    margin-top:28px; gap:12px;
+  }
+  .quiz-nav-btn {
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.06em; text-transform:uppercase;
+    border-radius:4px; padding:10px 22px; cursor:pointer;
+    transition:background 0.18s, box-shadow 0.18s, opacity 0.18s;
+    border:1px solid rgba(57,255,20,0.2); background:transparent; color:var(--text-muted);
+  }
+  .quiz-nav-btn:hover:not(:disabled) { border-color:rgba(57,255,20,0.4); color:var(--text); }
+  .quiz-nav-btn:disabled { opacity:0.25; cursor:not-allowed; }
+  .quiz-nav-btn.primary {
+    background:var(--neon); color:var(--bg); border-color:var(--neon);
+  }
+  .quiz-nav-btn.primary:hover:not(:disabled) { box-shadow:0 0 20px var(--neon-glow-strong); }
+
+  /* RESULTS */
+  .quiz-results { padding:32px; display:none; }
+  .quiz-results.show { display:block; }
+
+  .quiz-result-header { text-align:center; margin-bottom:32px; }
+  .quiz-score-ring {
+    width:110px; height:110px; border-radius:50%;
+    border:3px solid var(--neon);
+    box-shadow:0 0 30px var(--neon-glow-strong), inset 0 0 20px var(--neon-glow);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    margin:0 auto 20px;
+    gap:2px;
+  }
+  .quiz-score-val {
+    font-family:'Space Mono',monospace; font-size:28px; font-weight:700;
+    color:var(--neon); line-height:1;
+  }
+  .quiz-score-total {
+    font-family:'Space Mono',monospace; font-size:10px;
+    color:var(--text-dim); letter-spacing:0.08em;
+  }
+  .quiz-level-badge {
+    display:inline-block;
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700;
+    letter-spacing:0.2em; text-transform:uppercase;
+    padding:5px 16px; border-radius:3px;
+    margin-bottom:12px;
+  }
+  .quiz-result-title {
+    font-size:1.3rem; font-weight:800; color:var(--text);
+    letter-spacing:-0.02em; margin-bottom:8px;
+  }
+  .quiz-result-desc {
+    font-size:0.87rem; color:var(--text-muted); line-height:1.7; max-width:480px; margin:0 auto;
+  }
+
+  /* score bar */
+  .quiz-score-bar-wrap {
+    background:rgba(57,255,20,0.06); border-radius:4px; height:8px; margin:24px 0;
+    border:1px solid rgba(57,255,20,0.1); overflow:hidden;
+  }
+  .quiz-score-bar {
+    height:100%; border-radius:4px;
+    background:linear-gradient(to right, var(--neon-dim), var(--neon));
+    box-shadow:0 0 10px var(--neon-glow);
+    width:0%; transition:width 0.8s cubic-bezier(.22,1,.36,1) 0.3s;
+  }
+
+  /* recommendations */
+  .quiz-recs-title {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase; color:var(--neon-dim);
+    margin-bottom:14px;
+  }
+  .quiz-recs-grid {
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:28px;
+  }
+  .quiz-rec-card {
+    background:rgba(57,255,20,0.04);
+    border:1px solid rgba(57,255,20,0.12);
+    border-radius:8px; padding:14px 16px;
+    text-decoration:none; color:inherit;
+    transition:background 0.18s, border-color 0.18s;
+    display:flex; flex-direction:column; gap:4px;
+  }
+  .quiz-rec-card:hover {
+    background:rgba(57,255,20,0.08);
+    border-color:rgba(57,255,20,0.35);
+  }
+  .quiz-rec-icon { font-size:18px; margin-bottom:4px; }
+  .quiz-rec-name {
+    font-size:0.88rem; font-weight:700; color:var(--text);
+  }
+  .quiz-rec-why {
+    font-size:0.77rem; color:var(--text-muted); line-height:1.5;
+  }
+  .quiz-rec-arrow {
+    font-size:12px; color:var(--neon); margin-top:4px;
+    opacity:0; transition:opacity 0.18s;
+  }
+  .quiz-rec-card:hover .quiz-rec-arrow { opacity:1; }
+
+  .quiz-retake-btn {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--text-muted); background:transparent;
+    border:1px solid rgba(57,255,20,0.15); border-radius:4px;
+    padding:10px 24px; cursor:pointer; width:100%;
+    transition:border-color 0.2s, color 0.2s;
+  }
+  .quiz-retake-btn:hover { border-color:rgba(57,255,20,0.4); color:var(--neon); }
+
+  /* ── NEWS SECTION — RED ALERT THEME ── */
+  :root {
+    --red:            #ff2020;
+    --red-dim:        #991010;
+    --red-muted:      #cc1a1a;
+    --red-glow:       rgba(255,32,32,0.18);
+    --red-glow-str:   rgba(255,32,32,0.38);
+    --red-border:     rgba(255,32,32,0.22);
+    --red-bg:         #0e0707;
+    --red-bg-card:    #120808;
+    --red-bg-hover:   #180b0b;
+    --red-text:       #f5dcdc;
+    --red-text-muted: #8a5050;
+    --red-text-dim:   #4a2020;
+  }
+
+  .news-section {
+    position:relative; z-index:1;
+    max-width:1280px; margin:0 auto;
+    padding:0 2rem 100px;
+  }
+
+  /* section-level scanline tint */
+  .news-section::before {
+    content:''; pointer-events:none;
+    position:absolute; inset:0;
+    background:repeating-linear-gradient(
+      0deg, transparent, transparent 3px,
+      rgba(255,32,32,0.025) 3px, rgba(255,32,32,0.025) 4px
+    );
+    z-index:0;
+  }
+
+  .news-section > * { position:relative; z-index:1; }
+
+  .news-header {
+    display:flex; align-items:flex-end; justify-content:space-between;
+    margin-bottom:28px; padding-bottom:20px;
+    border-bottom:1px solid var(--red-border);
+  }
+
+  .news-eyebrow {
+    display:flex; align-items:center; gap:10px; margin-bottom:8px;
+  }
+
+  .news-live-dot {
+    width:8px; height:8px; border-radius:50%;
+    background:var(--red); flex-shrink:0;
+    box-shadow:0 0 10px var(--red-glow-str);
+    animation:live-pulse 1.2s ease-in-out infinite;
+  }
+
+  @keyframes live-pulse {
+    0%,100%{ opacity:1; box-shadow:0 0 8px var(--red-glow-str); }
+    50%    { opacity:0.3; box-shadow:0 0 3px var(--red-glow); }
+  }
+
+  .news-eyebrow-label {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.2em; text-transform:uppercase; color:var(--red-muted);
+  }
+
+  .news-title {
+    font-size:1.7rem; font-weight:800; letter-spacing:-0.02em; color:var(--red-text);
+  }
+
+  .news-meta-right {
+    display:flex; flex-direction:column; align-items:flex-end; gap:6px;
+  }
+
+  .news-date-badge {
+    font-family:'Space Mono',monospace; font-size:9px;
+    letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--red-dim); border:1px solid var(--red-border);
+    padding:3px 9px; border-radius:2px;
+    background:rgba(255,32,32,0.06);
+  }
+
+  .news-count-badge {
+    font-family:'Space Mono',monospace; font-size:9px;
+    color:var(--red-text-dim); letter-spacing:0.06em;
+  }
+
+  /* Grid — 2 columns on desktop, 1 on mobile */
+  .news-grid {
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:1px;
+    background:var(--red-border);
+    border:1px solid var(--red-border);
+    border-radius:12px;
+    overflow:hidden;
+  }
+
+  .news-card {
+    background:var(--red-bg-card);
+    padding:32px;
+    display:flex; flex-direction:column; gap:18px;
+    text-decoration:none; color:inherit;
+    transition:background 0.2s;
+    position:relative; overflow:hidden;
+    cursor:pointer;
+  }
+
+  /* red left-edge accent */
+  .news-card::before {
+    content:''; position:absolute;
+    left:0; top:0; bottom:0; width:3px;
+    background:linear-gradient(to bottom, var(--red) 0%, transparent 100%);
+    opacity:0;
+    transition:opacity 0.25s;
+  }
+
+  .news-card:hover { background:var(--red-bg-hover); }
+  .news-card:hover::before { opacity:1; }
+  .news-card:hover .news-arrow { opacity:1; transform:translate(3px,-3px); }
+
+  .news-card-top {
+    display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  }
+
+  .news-tags-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+  .news-source-badge {
+    font-family:'Space Mono',monospace; font-size:9px; font-weight:700;
+    letter-spacing:0.14em; text-transform:uppercase;
+    color:var(--red-muted);
+    background:rgba(255,32,32,0.08);
+    border:1px solid rgba(255,32,32,0.28);
+    padding:3px 9px; border-radius:2px;
+  }
+
+  .news-tag-badge {
+    font-family:'Space Mono',monospace; font-size:8px;
+    letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--red-text-dim);
+    border:1px solid rgba(255,32,32,0.12);
+    padding:2px 7px; border-radius:2px;
+  }
+
+  .news-arrow {
+    color:var(--red); font-size:20px;
+    opacity:0; transition:opacity 0.2s, transform 0.2s;
+    flex-shrink:0; line-height:1; font-weight:300;
+  }
+
+  .news-headline {
+    font-size:1.15rem; font-weight:800;
+    color:var(--red-text); letter-spacing:-0.02em; line-height:1.3;
+  }
+
+  .news-body { font-size:0.86rem; color:var(--red-text-muted); line-height:1.75; flex:1; }
+
+  .news-footer {
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    background:rgba(255,32,32,0.05);
+    border:1px solid rgba(255,32,32,0.1);
+    border-radius:4px; margin-top:auto;
+  }
+
+  .news-footer-dot {
+    width:6px; height:6px; border-radius:50%;
+    background:var(--red); flex-shrink:0;
+    box-shadow:0 0 6px var(--red-glow-str);
+    animation:live-pulse 1.6s ease-in-out infinite;
+  }
+
+  .news-footer-label {
+    font-family:'Space Mono',monospace; font-size:8px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--red-dim);
+  }
+
+  .news-date-stamp {
+    font-family:'Space Mono',monospace; font-size:8px;
+    color:var(--red-text-dim); letter-spacing:0.08em;
+    margin-left:auto;
+  }
+
+  /* Skeleton loader */
+  @keyframes red-shimmer {
+    0%  { background-position:200% 0; }
+    100%{ background-position:-200% 0; }
+  }
+  .skel {
+    background:linear-gradient(90deg,
+      rgba(255,32,32,0.04) 25%,
+      rgba(255,32,32,0.10) 50%,
+      rgba(255,32,32,0.04) 75%);
+    background-size:200% 100%;
+    border-radius:3px;
+    animation:red-shimmer 1.8s ease-in-out infinite;
+  }
+  .skel-h { height:12px; margin-bottom:9px; }
+  .skel-h.lg { height:20px; }
+  .skel-h.s  { width:38%; }
+  .skel-h.m  { width:65%; }
+  .skel-h.l  { width:96%; }
+
+  /* Refresh button */
+  .news-refresh-row { text-align:right; margin-top:16px; }
+  .news-refresh-btn {
+    font-family:'Space Mono',monospace; font-size:10px; font-weight:700;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--red-text); background:transparent;
+    border:1px solid var(--red-border); border-radius:4px;
+    padding:7px 18px; cursor:pointer;
+    transition:background 0.2s, border-color 0.2s, box-shadow 0.2s;
+    display:inline-flex; align-items:center; gap:7px;
+  }
+  .news-refresh-btn:hover:not(:disabled) {
+    background:rgba(255,32,32,0.08);
+    border-color:rgba(255,32,32,0.5);
+    box-shadow:0 0 14px var(--red-glow);
+  }
+  .news-refresh-btn:disabled { opacity:0.35; cursor:not-allowed; }
+
+  /* ═══════════════════════════════════════════
+     SECTION COLOUR THEMES
+     ─────────────────────────────────────────── */
+
+  /* ── CRYPTO — CYAN ── */
+  #crypto .section-header   { border-bottom-color: var(--cyan-border); }
+  #crypto .section-label    { color: var(--cyan-dim); }
+  #crypto .section-count    { color: rgba(0,245,255,0.3); }
+  #crypto .carousel-outer   { border-color: var(--cyan-border); }
+  #crypto .carousel-track   { background: var(--cyan-border); }
+  #crypto .carousel-btn     { color: var(--cyan); border-color: var(--cyan-border); }
+  #crypto .carousel-btn:hover:not(:disabled) {
+    border-color: rgba(0,245,255,0.6);
+    box-shadow: 0 0 14px var(--cyan-glow);
+  }
+  #crypto .carousel-dot.active {
+    background: var(--cyan);
+    box-shadow: 0 0 6px var(--cyan-glow-str);
+  }
+  #crypto .carousel-outer::before {
+    background: linear-gradient(to right, var(--bg-card) 0%, transparent 100%);
+  }
+  #crypto .carousel-outer::after {
+    background: linear-gradient(to left, var(--bg-card) 0%, transparent 100%);
+  }
+  #crypto .card { border-right-color: var(--cyan-border); }
+  #crypto .card:hover .card-icon-wrap {
+    box-shadow: 0 0 20px var(--cyan-glow);
+    border-color: rgba(0,245,255,0.45);
+  }
+  #crypto .card:hover .card-arrow { color: var(--cyan); }
+  #crypto .card-tag  { color: var(--cyan-dim); background: rgba(0,245,255,0.07); border-color: rgba(0,245,255,0.18); }
+  #crypto .stat-val  { color: var(--cyan); }
+  #crypto .card-stats { border-color: rgba(0,245,255,0.1); }
+  #crypto .card-footer { border-color: rgba(0,245,255,0.08); }
+  #crypto .pill { border-color: rgba(0,245,255,0.12); }
+  #crypto .card-icon-wrap { border-color: rgba(0,245,255,0.22); background: rgba(0,245,255,0.05); }
+  #crypto .stat-div { background: rgba(0,245,255,0.12); }
+
+  /* quote before crypto */
+  .quote-cyan { border-left-color: var(--cyan) !important; background: rgba(0,245,255,0.03) !important; }
+  .quote-cyan .quote-mark { color: var(--cyan) !important; }
+  .quote-cyan .quote-attr { color: var(--cyan-dim) !important; }
+
+  /* ── LOCAL AI — VIOLET ── */
+  #localai .section-header  { border-bottom-color: var(--violet-border); }
+  #localai .section-label   { color: var(--violet-dim); }
+  #localai .section-count   { color: rgba(123,47,255,0.35); }
+  #localai .carousel-outer  { border-color: var(--violet-border); }
+  #localai .carousel-track  { background: var(--violet-border); }
+  #localai .carousel-btn    { color: var(--violet); border-color: var(--violet-border); }
+  #localai .carousel-btn:hover:not(:disabled) {
+    border-color: rgba(123,47,255,0.6);
+    box-shadow: 0 0 14px var(--violet-glow);
+  }
+  #localai .carousel-dot.active {
+    background: var(--violet);
+    box-shadow: 0 0 6px var(--violet-glow-str);
+  }
+  #localai .card { border-right-color: var(--violet-border); }
+  #localai .card:hover .card-icon-wrap {
+    box-shadow: 0 0 20px var(--violet-glow);
+    border-color: rgba(123,47,255,0.5);
+  }
+  #localai .card:hover .card-arrow { color: var(--violet); }
+  #localai .card-tag  { color: var(--violet-dim); background: rgba(123,47,255,0.08); border-color: rgba(123,47,255,0.2); }
+  #localai .stat-val  { color: var(--violet); }
+  #localai .card-stats { border-color: rgba(123,47,255,0.1); }
+  #localai .card-footer { border-color: rgba(123,47,255,0.08); }
+  #localai .pill { border-color: rgba(123,47,255,0.14); }
+  #localai .card-icon-wrap { border-color: rgba(123,47,255,0.22); background: rgba(123,47,255,0.06); }
+  #localai .stat-div { background: rgba(123,47,255,0.12); }
+
+  /* quote before localai */
+  .quote-violet { border-left-color: var(--violet) !important; background: rgba(123,47,255,0.04) !important; }
+  .quote-violet .quote-mark { color: var(--violet) !important; }
+  .quote-violet .quote-attr { color: var(--violet-dim) !important; }
+
+  /* ── SELF-HOST — AMBER ── */
+  #selfhost .section-header  { border-bottom-color: var(--amber-border); }
+  #selfhost .section-label   { color: var(--amber-dim); }
+  #selfhost .section-count   { color: rgba(255,183,0,0.35); }
+  #selfhost .carousel-outer  { border-color: var(--amber-border); }
+  #selfhost .carousel-track  { background: var(--amber-border); }
+  #selfhost .carousel-btn    { color: var(--amber); border-color: var(--amber-border); }
+  #selfhost .carousel-btn:hover:not(:disabled) {
+    border-color: rgba(255,183,0,0.6);
+    box-shadow: 0 0 14px var(--amber-glow);
+  }
+  #selfhost .carousel-dot.active {
+    background: var(--amber);
+    box-shadow: 0 0 6px var(--amber-glow-str);
+  }
+  #selfhost .card { border-right-color: var(--amber-border); }
+  #selfhost .card:hover .card-icon-wrap {
+    box-shadow: 0 0 20px var(--amber-glow);
+    border-color: rgba(255,183,0,0.5);
+  }
+  #selfhost .card:hover .card-arrow { color: var(--amber); }
+  #selfhost .card-tag  { color: var(--amber-dim); background: rgba(255,183,0,0.07); border-color: rgba(255,183,0,0.2); }
+  #selfhost .stat-val  { color: var(--amber); }
+  #selfhost .card-stats { border-color: rgba(255,183,0,0.1); }
+  #selfhost .card-footer { border-color: rgba(255,183,0,0.08); }
+  #selfhost .pill { border-color: rgba(255,183,0,0.14); }
+  #selfhost .card-icon-wrap { border-color: rgba(255,183,0,0.22); background: rgba(255,183,0,0.06); }
+  #selfhost .stat-div { background: rgba(255,183,0,0.12); }
+
+  /* quote before selfhost */
+  .quote-amber { border-left-color: var(--amber) !important; background: rgba(255,183,0,0.04) !important; }
+  .quote-amber .quote-mark { color: var(--amber) !important; }
+  .quote-amber .quote-attr { color: var(--amber-dim) !important; }
+
+  /* ── QUIZ — MAGENTA ── */
+  .quiz-trigger-inner { border-color: var(--magenta-border) !important; background: rgba(255,45,155,0.03) !important; }
+  .quiz-trigger-inner::before,.quiz-trigger-inner::after { border-color: var(--magenta) !important; }
+  .quiz-trigger-label  { color: var(--magenta-dim) !important; }
+  .quiz-trigger-title span { color: var(--magenta) !important; text-shadow: 0 0 30px var(--magenta-glow-str); }
+  .quiz-score-preview  { border-color: var(--magenta-border) !important; background: rgba(255,45,155,0.04) !important; }
+  .quiz-score-preview-val { color: var(--magenta) !important; }
+  .quiz-open-btn       { background: var(--magenta) !important; }
+  .quiz-open-btn:hover { box-shadow: 0 0 24px var(--magenta-glow-str) !important; }
+  .quiz-progress-bar   { background: var(--magenta) !important; box-shadow: 0 0 8px var(--magenta-glow-str) !important; }
+  .quiz-option:hover   { border-color: rgba(255,45,155,0.4) !important; box-shadow: 0 0 12px var(--magenta-glow) !important; }
+  .quiz-option.selected { border-color: var(--magenta) !important; box-shadow: 0 0 16px var(--magenta-glow) !important; background: rgba(255,45,155,0.1) !important; }
+  .quiz-option.selected .quiz-option-key { background: var(--magenta) !important; border-color: var(--magenta) !important; color: #fff !important; }
+  .quiz-option.selected .quiz-option-text { color: var(--text) !important; }
+  .quiz-nav-btn.primary { background: var(--magenta) !important; border-color: var(--magenta) !important; }
+  .quiz-nav-btn.primary:hover:not(:disabled) { box-shadow: 0 0 20px var(--magenta-glow-str) !important; }
+  .quiz-modal { border-color: var(--magenta-border) !important; }
+  .quiz-step-label { color: var(--magenta-dim) !important; }
+  .quiz-recs-title { color: var(--magenta-dim) !important; }
+  .quiz-rec-card { border-color: rgba(255,45,155,0.14) !important; background: rgba(255,45,155,0.03) !important; }
+  .quiz-rec-card:hover { border-color: rgba(255,45,155,0.4) !important; background: rgba(255,45,155,0.07) !important; }
+  .quiz-rec-arrow { color: var(--magenta) !important; }
+  .quiz-retake-btn:hover { border-color: rgba(255,45,155,0.4) !important; color: var(--magenta) !important; }
+  /* quiz mid-level results use amber */
+  .level-amber .quiz-score-ring { border-color: var(--amber) !important; box-shadow: 0 0 30px var(--amber-glow-str), inset 0 0 20px var(--amber-glow) !important; }
+
+  /* Nav link colours */
+  .nav-link-cyan    { color: var(--cyan) !important; }
+  .nav-link-amber   { color: var(--amber) !important; }
+  .nav-link-violet  { color: var(--violet) !important; }
+  .nav-link-magenta { color: var(--magenta) !important; }
+  .nav-links a.nav-link-cyan:hover    { color: var(--cyan) !important; opacity: 0.8; }
+  .nav-links a.nav-link-amber:hover   { color: var(--amber) !important; opacity: 0.8; }
+  .nav-links a.nav-link-violet:hover  { color: var(--violet) !important; opacity: 0.8; }
+  .nav-links a.nav-link-magenta:hover { color: var(--magenta) !important; opacity: 0.8; }
+
+  /* Multi-colour hero title */
+  .hero-title .c-cyan    { color: var(--cyan);    text-shadow: 0 0 40px var(--cyan-glow-str); }
+  .hero-title .c-magenta { color: var(--magenta); text-shadow: 0 0 40px var(--magenta-glow-str); }
+  .hero-title .c-amber   { color: var(--amber);   text-shadow: 0 0 40px var(--amber-glow-str); }
+
+  /* ── FOOTER ── */
+  footer { position:relative; z-index:1; border-top:1px solid var(--border); padding:40px 3rem; display:flex; align-items:center; justify-content:space-between; }
+  .footer-left { display:flex; align-items:center; gap:12px; }
+  .footer-note { font-family:'Space Mono',monospace; font-size:11px; color:var(--text-dim); letter-spacing:0.04em; }
+  .footer-note a { color:var(--neon-dim); text-decoration:none; }
+  .footer-note a:hover { color:var(--neon); }
+
+  @keyframes pulse-glow {
+    0%,100%{box-shadow:0 0 12px var(--neon-glow-strong),inset 0 0 8px var(--neon-glow);}
+    50%{box-shadow:0 0 28px var(--neon-glow-strong),inset 0 0 16px var(--neon-glow);}
+  }
+
+  @media(max-width:768px){
+    nav{padding:0 1.2rem;} .nav-links{display:none;}
+    .hero{padding:80px 1.2rem 60px;}
+    .section,.quote-wrap,.news-section{padding-left:1.2rem;padding-right:1.2rem;}
+    .card{flex:0 0 88vw;}
+    .news-grid{grid-template-columns:1fr;}
+    footer{flex-direction:column;gap:12px;text-align:center;}
+    .quote-inner{padding:20px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="8" cy="8" r="2.5" fill="#39ff14"/>
+        <circle cx="8" cy="2" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="8" cy="14" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="2" cy="8" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="14" cy="8" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <line x1="8" y1="3.5" x2="8" y2="5.5" stroke="#39ff14" stroke-width="0.8" opacity="0.5"/>
+        <line x1="8" y1="10.5" x2="8" y2="12.5" stroke="#39ff14" stroke-width="0.8" opacity="0.5"/>
+        <line x1="3.5" y1="8" x2="5.5" y2="8" stroke="#39ff14" stroke-width="0.8" opacity="0.5"/>
+        <line x1="10.5" y1="8" x2="12.5" y2="8" stroke="#39ff14" stroke-width="0.8" opacity="0.5"/>
+      </svg>
+    </div>
+    <span class="nav-wordmark">SovereignStack</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#privacy">Privacy</a></li>
+    <li><a href="#crypto" class="nav-link-cyan">Crypto</a></li>
+    <li><a href="#selfhost" class="nav-link-amber">Self-Host</a></li>
+    <li><a href="#localai" class="nav-link-violet">Local AI</a></li>
+    <li><a href="#news" style="color:#cc3333;">⚡ News</a></li>
+  </ul>
+  <a class="nav-cta" href="#tools">Browse Tools ↗</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">Own your data</div>
+  <h1 class="hero-title">Stop renting.<br><span>Go sovereign.</span></h1>
+  <p class="hero-sub">A curated directory of open-source and decentralized tools that put privacy, security, and ownership back in your hands.</p>
+  <div class="hero-badges">
+    <span class="badge">Open Source</span>
+    <span class="badge">No ads</span>
+    <span class="badge">Self-hostable</span>
+    <span class="badge">Privacy-first</span>
+    <span class="badge">Decentralized</span>
+  </div>
+</section>
+
+<!-- QUIZ TRIGGER -->
+<div class="quiz-trigger-wrap">
+  <div class="quiz-trigger-inner">
+    <div class="quiz-trigger-left">
+      <div class="quiz-trigger-label">Interactive Assessment</div>
+      <div class="quiz-trigger-title">How Sovereign<br>Are You? <span>Find Out.</span></div>
+      <p class="quiz-trigger-desc">10 questions across browser, email, VPN, payments, and more. Get a privacy score and a personalized tool stack built for your threat model — in under 2 minutes.</p>
+    </div>
+    <div class="quiz-trigger-right">
+      <div class="quiz-score-preview">
+        <div class="quiz-score-preview-val" id="preview-score">?</div>
+        <div class="quiz-score-preview-label">Your score</div>
+      </div>
+      <button class="quiz-open-btn" onclick="openQuiz()">Take the Quiz →</button>
+      <div class="quiz-meta-row">10 questions · ~2 min · no data collected</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE 1 — Snowden -->
+<div class="quote-wrap">
+  <div class="quote-inner">
+    <div class="quote-mark">"</div>
+    <p class="quote-text">Arguing that you don't care about the right to privacy because you have nothing to hide is no different than saying you don't care about free speech because you have nothing to say.</p>
+    <div class="quote-attr">Edward Snowden <span>— NSA Whistleblower, 2015</span></div>
+  </div>
+</div>
+
+<div class="section" id="tools">
+
+  <!-- ── PRIVACY & SECURITY ── -->
+  <div id="privacy" style="margin-bottom:70px;">
+    <div class="section-header">
+      <div><div class="section-label">Category 01</div><div class="section-title">Privacy & Security</div></div>
+      <div class="section-count">08 tools</div>
+    </div>
+    <div class="carousel-controls" data-carousel="c-privacy">
+      <span class="carousel-progress">01 / 08</span>
+      <div class="carousel-dots"></div>
+      <button class="carousel-btn" data-dir="prev">←</button>
+      <button class="carousel-btn" data-dir="next">→</button>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="c-privacy">
+
+        <a class="card" href="https://www.torproject.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🧅</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Tor Browser <span class="card-tag">Anonymous Browsing</span></div>
+            <div class="card-url">torproject.org</div>
+            <div class="card-desc">Route your internet traffic through the Tor network — a volunteer-run system of thousands of relays worldwide. Your IP, location, and browsing habits become invisible to ISPs, advertisers, and surveillance. The gold standard for anonymous browsing.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">~8M</div><div class="stat-label">Daily users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">7,000+</div><div class="stat-label">Relays</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2002</div><div class="stat-label">Est.</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Anonymous</span><span class="pill">Open source</span><span class="pill">Anti-surveillance</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://bitwarden.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🔐</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Bitwarden <span class="card-tag">Password Manager</span></div>
+            <div class="card-url">bitwarden.com</div>
+            <div class="card-desc">An end-to-end encrypted, open-source password manager you can self-host or use via their trusted cloud. Store, generate, and sync credentials across all your devices — never rely on a megacorp with your secrets again.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">25M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">15M+</div><div class="stat-label">Downloads</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">10K+</div><div class="stat-label">Self-hosted</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Self-hostable</span><span class="pill">E2E Encrypted</span><span class="pill">Cross-platform</span><span class="pill">Free tier</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://protonvpn.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🛡️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Proton VPN <span class="card-tag">VPN</span></div>
+            <div class="card-url">protonvpn.com</div>
+            <div class="card-desc">A no-logs VPN built by the team behind ProtonMail, based in Switzerland and governed by some of the world's strongest privacy laws. The source code is fully audited and open, so you can verify the no-logs claims yourself.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">100M+</div><div class="stat-label">Downloads</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">3,500+</div><div class="stat-label">Servers</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">91</div><div class="stat-label">Countries</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">No-logs</span><span class="pill">Open source</span><span class="pill">Audited</span><span class="pill">Switzerland</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://proton.me/mail" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">✉️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Proton Mail <span class="card-tag">Email</span></div>
+            <div class="card-url">proton.me/mail</div>
+            <div class="card-desc">End-to-end encrypted email that even Proton cannot read. Built on open standards, hosted in Switzerland, and trusted by millions of journalists, activists, and privacy-conscious users worldwide.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">100M+</div><div class="stat-label">Accounts</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">50+</div><div class="stat-label">Countries</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">E2E Encrypted</span><span class="pill">Zero-access</span><span class="pill">Free tier</span><span class="pill">Open source</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://brave.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🦁</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Brave Browser <span class="card-tag">Private Browser</span></div>
+            <div class="card-url">brave.com</div>
+            <div class="card-desc">A Chromium-based browser that blocks ads and trackers by default, with built-in Tor for private windows, fingerprint randomization, and a native crypto wallet. Dramatically faster than Chrome with zero data sold to advertisers.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">70M+</div><div class="stat-label">Monthly users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2016</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">3× faster</div><div class="stat-label">Than Chrome</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Ad blocker</span><span class="pill">Tor windows</span><span class="pill">Fingerprint shield</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://tails.boum.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">👻</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Tails OS <span class="card-tag">Amnesic OS</span></div>
+            <div class="card-url">tails.boum.org</div>
+            <div class="card-desc">A live operating system you boot from a USB stick that leaves zero trace on the host machine. Routes all traffic through Tor, includes hardened encryption tools, and wipes itself completely on shutdown. Trusted by journalists and activists worldwide.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">~25K</div><div class="stat-label">Daily boots</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2009</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">0 bytes</div><div class="stat-label">Left behind</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Amnesic</span><span class="pill">Tor-only</span><span class="pill">USB bootable</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://mullvad.net" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🎭</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Mullvad VPN <span class="card-tag">VPN</span></div>
+            <div class="card-url">mullvad.net</div>
+            <div class="card-desc">The most anonymous VPN on the market — accepts cash and Monero, requires zero personal info to sign up (just an account number), keeps no logs, and underwent multiple independent audits. Based in Sweden under strong privacy law.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">~100K</div><div class="stat-label">Subscribers</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">€5/mo</div><div class="stat-label">Flat rate</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2009</div><div class="stat-label">Founded</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">No email needed</span><span class="pill">Cash accepted</span><span class="pill">Audited</span><span class="pill">No logs</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://privacy.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">💳</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Privacy.com <span class="card-tag">Virtual Cards</span></div>
+            <div class="card-url">privacy.com</div>
+            <div class="card-desc">Generate single-use or merchant-locked virtual debit cards tied to your real account but with no real card number exposed. Set spending limits, pause or delete cards instantly, and stop data brokers from linking purchases back to your identity.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">1M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">$10B+</div><div class="stat-label">Transactions</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2015</div><div class="stat-label">Founded</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Virtual cards</span><span class="pill">Spend limits</span><span class="pill">US only</span><span class="pill">Free tier</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 2 (was Assange) now becomes: ELLSBERG — leads into Local AI -->
+  <div style="margin-bottom:70px;">
+    <div class="quote-inner dim quote-violet">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">Secrecy is the keystone of all tyranny. Not force, but secrecy — censorship. When any government or any church for that matter undertakes to say to its subjects, "This you may not read, this you must not see, this you are forbidden to know," the end result is tyranny and oppression.</p>
+      <div class="quote-attr">Daniel Ellsberg <span>— Pentagon Papers Whistleblower</span></div>
+    </div>
+  </div>
+
+  <!-- ── LOCAL AI ── -->
+  <div id="localai" style="margin-bottom:70px;">
+    <div class="section-header">
+      <div><div class="section-label">Category 02</div><div class="section-title">Local AI & Offline Tools</div></div>
+      <div class="section-count">03 tools</div>
+    </div>
+    <div class="carousel-controls" data-carousel="c-localai">
+      <span class="carousel-progress">01 / 03</span>
+      <div class="carousel-dots"></div>
+      <button class="carousel-btn" data-dir="prev">←</button>
+      <button class="carousel-btn" data-dir="next">→</button>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="c-localai">
+
+        <a class="card" href="https://ollama.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🦙</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Ollama <span class="card-tag">Local AI</span></div>
+            <div class="card-url">ollama.com</div>
+            <div class="card-desc">Run powerful large language models like Llama 3, Mistral, and Qwen entirely on your own hardware. No API keys, no usage limits, no data sent to any cloud. A single command gets you a private AI assistant that works completely offline.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">10M+</div><div class="stat-label">Downloads</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">100+</div><div class="stat-label">Models</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">90K+</div><div class="stat-label">GitHub ★</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">100% offline</span><span class="pill">Open source</span><span class="pill">GPU support</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.projectnomad.us" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🏕️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Project N.O.M.A.D. <span class="card-tag">Offline Server</span></div>
+            <div class="card-url">projectnomad.us</div>
+            <div class="card-desc">Node for Offline Media, Archives, and Data — a free, open-source self-contained server that bundles Wikipedia, a local AI assistant (via Ollama), offline maps, Khan Academy, medical references, and survival guides into one Docker deploy. Works forever without internet after setup.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">Free</div><div class="stat-label">Forever</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">10+</div><div class="stat-label">Bundled apps</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Offline</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Fully offline</span><span class="pill">Open source</span><span class="pill">Docker-based</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.canirun.ai" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🖥️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">CanIRun.ai <span class="card-tag">AI Compatibility</span></div>
+            <div class="card-url">canirun.ai</div>
+            <div class="card-desc">Instantly find out which open-source AI models your hardware can run locally. It scans your GPU, CPU, and RAM directly in the browser — no installs, no accounts — and grades hundreds of models from Llama to DeepSeek by how well they'll perform on your machine.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">500+</div><div class="stat-label">Models rated</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Free</div><div class="stat-label">No account</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Browser</div><div class="stat-label">Based</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Browser-based</span><span class="pill">No install</span><span class="pill">Privacy-safe</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE — Assange (now leads into Crypto) -->
+  <div style="margin-bottom:70px;">
+    <div class="quote-inner dim quote-cyan">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">The internet, our greatest tool of emancipation, has been transformed into the most dangerous facilitator of totalitarianism we have ever seen.</p>
+      <div class="quote-attr">Julian Assange <span>— WikiLeaks Founder, Cypherpunks (2012)</span></div>
+    </div>
+  </div>
+
+  <!-- ── CRYPTO ── -->
+  <div id="crypto" style="margin-bottom:70px;">
+    <div class="section-header">
+      <div><div class="section-label">Category 02</div><div class="section-title">Crypto & Financial Sovereignty</div></div>
+      <div class="section-count">03 tools</div>
+    </div>
+    <div class="carousel-controls" data-carousel="c-crypto">
+      <span class="carousel-progress">01 / 03</span>
+      <div class="carousel-dots"></div>
+      <button class="carousel-btn" data-dir="prev">←</button>
+      <button class="carousel-btn" data-dir="next">→</button>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="c-crypto">
+
+        <a class="card" href="https://bitcoin.org/en/choose-your-wallet" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">₿</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Bitcoin Wallet <span class="card-tag">Crypto</span></div>
+            <div class="card-url">bitcoin.org</div>
+            <div class="card-desc">Hold your own keys. Bitcoin's official wallet directory helps you find open-source, self-custodial wallets so no exchange or third party can freeze or seize your funds. Not your keys, not your coins.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">106M+</div><div class="stat-label">BTC wallets</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">$1.8T+</div><div class="stat-label">Market cap</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">21M</div><div class="stat-label">Max supply</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Self-custody</span><span class="pill">Open source</span><span class="pill">Decentralized</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://sparrowwallet.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🐦</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Sparrow Wallet <span class="card-tag">Bitcoin Wallet</span></div>
+            <div class="card-url">sparrowwallet.com</div>
+            <div class="card-desc">A feature-rich Bitcoin desktop wallet built for those who want full control and transparency. Supports hardware wallets, multisig, CoinJoin for privacy, and connects directly to your own Bitcoin node.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">500K+</div><div class="stat-label">Downloads</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">★ 4.9</div><div class="stat-label">GitHub rating</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2020</div><div class="stat-label">Released</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Hardware wallet</span><span class="pill">Multisig</span><span class="pill">CoinJoin</span><span class="pill">Node support</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://getmonero.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🔮</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Monero <span class="card-tag">Privacy Coin</span></div>
+            <div class="card-url">getmonero.org</div>
+            <div class="card-desc">The leading privacy-focused cryptocurrency. Every transaction hides the sender, recipient, and amount by default using ring signatures and stealth addresses. Open-source, community-driven, and truly fungible digital cash.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">18.3M</div><div class="stat-label">XMR supply</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Top 30</div><div class="stat-label">Market cap rank</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2014</div><div class="stat-label">Founded</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Private by default</span><span class="pill">Open source</span><span class="pill">Fungible</span><span class="pill">ASIC-resistant</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 3 — Snowden -->
+  <div style="margin-bottom:70px;">
+    <div class="quote-inner quote-amber">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">The government has granted itself power it is not entitled to. There is no public oversight. The result is people like myself have the latitude to go further than they are allowed to.</p>
+      <div class="quote-attr">Edward Snowden <span>— Interview, The Guardian (2013)</span></div>
+    </div>
+  </div>
+
+  <!-- ── SELF-HOSTING ── -->
+  <div id="selfhost" style="margin-bottom:70px;">
+    <div class="section-header">
+      <div><div class="section-label">Category 03</div><div class="section-title">Self-Hosting & Infrastructure</div></div>
+      <div class="section-count">05 tools</div>
+    </div>
+    <div class="carousel-controls" data-carousel="c-selfhost">
+      <span class="carousel-progress">01 / 05</span>
+      <div class="carousel-dots"></div>
+      <button class="carousel-btn" data-dir="prev">←</button>
+      <button class="carousel-btn" data-dir="next">→</button>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="c-selfhost">
+
+        <a class="card" href="https://nextcloud.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">☁️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Nextcloud <span class="card-tag">Cloud Storage</span></div>
+            <div class="card-url">nextcloud.com</div>
+            <div class="card-desc">Your own private Google Drive/Docs/Photos — running on your hardware. Sync files, photos, calendars, and contacts across all your devices without a single byte ever touching someone else's server.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">400K+</div><div class="stat-label">Deployments</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">20M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">1B+</div><div class="stat-label">Files synced</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Self-hostable</span><span class="pill">File sync</span><span class="pill">Calendar</span><span class="pill">Open source</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://jellyfin.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🎬</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Jellyfin <span class="card-tag">Media Server</span></div>
+            <div class="card-url">jellyfin.org</div>
+            <div class="card-desc">A completely free, open-source media server that puts you in charge of your movie, TV, and music library. No subscriptions, no tracking, no paywalls — stream to any device from your own home server.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">4M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">20M+</div><div class="stat-label">Downloads</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2018</div><div class="stat-label">Forked</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Self-hostable</span><span class="pill">No fees</span><span class="pill">No tracking</span><span class="pill">All devices</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://pi-hole.net" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🕳️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Pi-hole <span class="card-tag">DNS Blocker</span></div>
+            <div class="card-url">pi-hole.net</div>
+            <div class="card-desc">A network-wide ad and tracker blocker that acts as a DNS sinkhole. Block ads, telemetry, and malicious domains across every device on your network — from your TV to your toaster — no app installs needed.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">~10M</div><div class="stat-label">Installs</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">300K+</div><div class="stat-label">Domains blocked</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2014</div><div class="stat-label">Since</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Network-wide</span><span class="pill">DNS filtering</span><span class="pill">Ad blocker</span><span class="pill">Raspberry Pi</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://umbrel.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">⛵</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Umbrel <span class="card-tag">Home Server OS</span></div>
+            <div class="card-url">umbrel.com</div>
+            <div class="card-desc">A beautiful, one-click home server OS that lets you self-host hundreds of apps including Bitcoin nodes, Nextcloud, Jellyfin, and AI tools. Designed for everyone — no command line required.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">100K+</div><div class="stat-label">Nodes</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">150+</div><div class="stat-label">Apps</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2020</div><div class="stat-label">Founded</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">App store</span><span class="pill">Bitcoin node</span><span class="pill">Self-hostable</span><span class="pill">Open source</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://www.libreoffice.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">📄</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">LibreOffice <span class="card-tag">Office Suite</span></div>
+            <div class="card-url">libreoffice.org</div>
+            <div class="card-desc">A full-featured, open-source office suite — word processor, spreadsheet, presentation tool, and more — that runs entirely offline on your own machine. No Microsoft account, no cloud sync, no subscription. Your documents stay yours.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">200M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2011</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">110+</div><div class="stat-label">Languages</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">100% offline</span><span class="pill">Open source</span><span class="pill">MS Office compat</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 5 — Manning -->
+  <div style="margin-bottom:20px;">
+    <div class="quote-inner quote-cyan" style="border-left-color:var(--magenta);background:rgba(255,45,155,0.03);">
+      <div class="quote-mark">"</div>
+      <p class="quote-text">I want people to see the truth… regardless of who they are… because without information, you cannot make informed decisions as a public.</p>
+      <div class="quote-attr">Chelsea Manning <span>— US Army Whistleblower, 2010</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── NEWS SECTION ── -->
+<section class="news-section" id="news">
+
+  <div class="news-header">
+    <div>
+      <div class="news-eyebrow">
+        <div class="news-live-dot"></div>
+        <span class="news-eyebrow-label">Daily Intelligence Dispatch</span>
+      </div>
+      <div class="news-title">Privacy & Tech Law — Today's Alerts</div>
+    </div>
+    <div class="news-meta-right">
+      <div class="news-date-badge" id="news-date-badge">—</div>
+      <div class="news-count-badge" id="news-count-badge">Loading…</div>
+    </div>
+  </div>
+
+  <div class="news-grid" id="news-grid">
+    <!-- Skeleton card 1 -->
+    <div class="news-card" style="cursor:default;">
+      <div><div class="skel skel-h s"></div><div class="skel skel-h lg" style="width:80%;margin-bottom:0;"></div></div>
+      <div><div class="skel skel-h l"></div><div class="skel skel-h l"></div><div class="skel skel-h m"></div></div>
+      <div class="skel skel-h s" style="margin-bottom:0;height:32px;border-radius:4px;"></div>
+    </div>
+    <!-- Skeleton card 2 -->
+    <div class="news-card" style="cursor:default;">
+      <div><div class="skel skel-h s"></div><div class="skel skel-h lg" style="width:75%;margin-bottom:0;"></div></div>
+      <div><div class="skel skel-h l"></div><div class="skel skel-h l"></div><div class="skel skel-h m"></div></div>
+      <div class="skel skel-h s" style="margin-bottom:0;height:32px;border-radius:4px;"></div>
+    </div>
+  </div>
+
+  <div class="news-refresh-row">
+    <button class="news-refresh-btn" id="news-refresh-btn" onclick="loadNews(true)">
+      <span id="news-btn-icon">↻</span> Refresh Dispatch
+    </button>
+  </div>
+
+</section>
+
+<!-- ── QUIZ OVERLAY ── -->
+<div class="quiz-overlay" id="quiz-overlay" onclick="handleOverlayClick(event)">
+  <div class="quiz-modal" id="quiz-modal">
+    <div class="quiz-progress-bar-wrap">
+      <div class="quiz-progress-bar" id="quiz-bar"></div>
+    </div>
+
+    <!-- Questions panel -->
+    <div id="quiz-questions-panel">
+      <div class="quiz-modal-header">
+        <span class="quiz-step-label" id="quiz-step-label">Question 1 of 10</span>
+        <button class="quiz-close-btn" onclick="closeQuiz()">✕</button>
+      </div>
+      <div class="quiz-modal-body">
+        <div class="quiz-q-number" id="quiz-q-number"></div>
+        <div class="quiz-question" id="quiz-question"></div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-nav">
+          <button class="quiz-nav-btn" id="quiz-prev-btn" onclick="quizPrev()">← Back</button>
+          <button class="quiz-nav-btn primary" id="quiz-next-btn" onclick="quizNext()" disabled>Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results panel -->
+    <div class="quiz-results" id="quiz-results">
+      <div class="quiz-result-header">
+        <div class="quiz-score-ring">
+          <div class="quiz-score-val" id="result-score-val">0</div>
+          <div class="quiz-score-total">/ 30</div>
+        </div>
+        <div class="quiz-level-badge" id="result-level-badge"></div>
+        <div class="quiz-result-title" id="result-title"></div>
+        <div class="quiz-score-bar-wrap">
+          <div class="quiz-score-bar" id="result-bar"></div>
+        </div>
+        <p class="quiz-result-desc" id="result-desc"></p>
+      </div>
+      <div class="quiz-recs-title">Your Recommended Stack</div>
+      <div class="quiz-recs-grid" id="result-recs"></div>
+      <button class="quiz-retake-btn" onclick="resetQuiz()">↺ Retake the Quiz</button>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-left">
+    <div class="logo-mark" style="width:24px;height:24px;">
+      <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:12px;height:12px;">
+        <circle cx="8" cy="8" r="2.5" fill="#39ff14"/>
+        <circle cx="8" cy="2" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="8" cy="14" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="2" cy="8" r="1.5" fill="#39ff14" opacity="0.7"/>
+        <circle cx="14" cy="8" r="1.5" fill="#39ff14" opacity="0.7"/>
+      </svg>
+    </div>
+    <span class="footer-note">SovereignStack — A community directory. No affiliate links.</span>
+  </div>
+  <span class="footer-note">Built with open-source love · <a href="#">Suggest a tool</a></span>
+</footer>
+
+<script>
+(function () {
+  document.querySelectorAll('.carousel-controls').forEach(controls => {
+    const trackId = controls.dataset.carousel;
+    const track   = document.getElementById(trackId);
+    if (!track) return;
+
+    const cards    = Array.from(track.children);
+    const total    = cards.length;
+    const progEl   = controls.querySelector('.carousel-progress');
+    const dotsEl   = controls.querySelector('.carousel-dots');
+    const btnPrev  = controls.querySelector('[data-dir="prev"]');
+    const btnNext  = controls.querySelector('[data-dir="next"]');
+
+    // Build dots
+    cards.forEach((_, i) => {
+      const d = document.createElement('span');
+      d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    });
+
+    function currentIndex() {
+      const w = cards[0].offsetWidth;
+      return Math.round(track.scrollLeft / w);
+    }
+
+    function goTo(idx) {
+      idx = Math.max(0, Math.min(idx, total - 1));
+      track.scrollTo({ left: cards[idx].offsetLeft, behavior: 'smooth' });
+    }
+
+    function update() {
+      const idx = currentIndex();
+      progEl.textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+      btnPrev.disabled = idx === 0;
+      btnNext.disabled = idx >= total - 1;
+    }
+
+    btnPrev.addEventListener('click', () => goTo(currentIndex() - 1));
+    btnNext.addEventListener('click', () => goTo(currentIndex() + 1));
+    track.addEventListener('scroll', update, { passive: true });
+
+    // Init
+    update();
+  });
+})();
+</script>
+
+<script>
+/* ── DAILY NEWS LOADER ──────────────────────────────────────────────── */
+(function () {
+  const CACHE_KEY = 'ss_daily_news_v2';
+
+  function todayKey() {
+    const d = new Date();
+    return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+  }
+
+  function getCached() {
+    try {
+      const raw = localStorage.getItem(CACHE_KEY);
+      if (!raw) return null;
+      const { day, articles } = JSON.parse(raw);
+      if (day !== todayKey()) return null;   // new day → stale
+      return articles;
+    } catch { return null; }
+  }
+
+  function setCache(articles) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({ day: todayKey(), articles }));
+    } catch {}
+  }
+
+  function esc(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+  }
+
+  function renderArticles(articles) {
+    const grid = document.getElementById('news-grid');
+    const countBadge = document.getElementById('news-count-badge');
+
+    grid.innerHTML = articles.map(a => `
+      <a class="news-card" href="${esc(a.url)}" target="_blank" rel="noopener">
+        <div class="news-card-top">
+          <div class="news-tags-row">
+            <span class="news-source-badge">${esc(a.source)}</span>
+            ${(a.tags||[]).map(t=>`<span class="news-tag-badge">${esc(t)}</span>`).join('')}
+          </div>
+          <span class="news-arrow">↗</span>
+        </div>
+        <div class="news-headline">${esc(a.headline)}</div>
+        <div class="news-body">${esc(a.body)}</div>
+        <div class="news-footer">
+          <div class="news-footer-dot"></div>
+          <span class="news-footer-label">${esc(a.urgency || 'Developing')}</span>
+          <span class="news-date-stamp">${esc(a.date)}</span>
+        </div>
+      </a>`).join('');
+
+    countBadge.textContent = `${articles.length} dispatches`;
+  }
+
+  function renderSkeletons() {
+    const grid = document.getElementById('news-grid');
+    grid.innerHTML = [1,2].map(() => `
+      <div class="news-card" style="cursor:default;">
+        <div><div class="skel skel-h s"></div><div class="skel skel-h lg" style="width:80%;margin-bottom:0;"></div></div>
+        <div><div class="skel skel-h l"></div><div class="skel skel-h l"></div><div class="skel skel-h m"></div></div>
+        <div class="skel skel-h s" style="margin-bottom:0;height:32px;border-radius:4px;"></div>
+      </div>`).join('');
+  }
+
+  async function loadNews(force) {
+    const btn     = document.getElementById('news-refresh-btn');
+    const icon    = document.getElementById('news-btn-icon');
+    const countBadge = document.getElementById('news-count-badge');
+    const dateBadge  = document.getElementById('news-date-badge');
+
+    // Stamp today's date immediately
+    const now = new Date();
+    dateBadge.textContent = now.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' }).toUpperCase();
+
+    if (!force) {
+      const cached = getCached();
+      if (cached) { renderArticles(cached); return; }
+    }
+
+    renderSkeletons();
+    countBadge.textContent = 'Fetching…';
+    btn.disabled = true;
+    icon.textContent = '⏳';
+
+    const dateStr = now.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' });
+
+    const prompt = `Today is ${dateStr}. You are a senior investigative journalist covering privacy law, surveillance, and tech regulation. Generate exactly 2 urgent, real-feeling news dispatches about IMPORTANT privacy or tech law developments — court rulings, legislation, regulatory actions, data breaches, government surveillance programs, Big Tech fines, or whistleblower cases.
+
+Each story must feel genuinely newsworthy and time-sensitive for today. Write with urgency and specificity. Vary the jurisdictions (US, EU, global).
+
+Respond ONLY with a valid JSON array. No markdown, no code fences, no preamble.
+
+[
+  {
+    "headline": "Sharp, urgent headline under 15 words",
+    "source": "Realistic outlet name (e.g. The Intercept, Politico, Reuters, Wired, EFF, Ars Technica)",
+    "date": "${now.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}",
+    "body": "3-4 sentence summary that reads like breaking news. Include specific entities, dollar amounts, dates, or case names where appropriate to add credibility.",
+    "tags": ["tag1", "tag2"],
+    "urgency": "One of: Breaking · Developing · Critical · Urgent · Alert",
+    "url": "#"
+  }
+]`;
+
+    try {
+      const res = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514',
+          max_tokens: 900,
+          messages: [{ role: 'user', content: prompt }]
+        })
+      });
+
+      const data = await res.json();
+      const text = (data.content || []).map(b => b.text || '').join('');
+      const clean = text.replace(/```json|```/gi, '').trim();
+      const articles = JSON.parse(clean);
+      setCache(articles);
+      renderArticles(articles);
+    } catch (err) {
+      document.getElementById('news-grid').innerHTML = `
+        <div class="news-card" style="grid-column:1/-1;cursor:default;align-items:center;text-align:center;padding:48px;">
+          <div style="font-size:32px;margin-bottom:12px;">📡</div>
+          <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--red-text-dim);letter-spacing:0.08em;">SIGNAL LOST — CHECK CONNECTION</div>
+        </div>`;
+      document.getElementById('news-count-badge').textContent = '— dispatches';
+      console.error('News error:', err);
+    } finally {
+      btn.disabled = false;
+      icon.textContent = '↻';
+    }
+  }
+
+  window.loadNews = loadNews;
+  loadNews(false);
+})();
+</script>
+
+<script>
+/* ── PRIVACY SELF-ASSESSMENT QUIZ ──────────────────────────────────── */
+const QUESTIONS = [
+  {
+    q: "What browser do you primarily use to surf the web?",
+    cat: "Browser",
+    opts: [
+      { t: "Chrome, Edge, or Safari — default, haven't thought about it", s: 0 },
+      { t: "Firefox — privacy-respecting but mainstream", s: 1 },
+      { t: "Brave — blocks ads and trackers by default", s: 2 },
+      { t: "Tor Browser — full anonymity, routed through Tor", s: 3 },
+    ]
+  },
+  {
+    q: "How do you manage your passwords?",
+    cat: "Passwords",
+    opts: [
+      { t: "I reuse the same few passwords or keep them in my head", s: 0 },
+      { t: "My browser saves them (Chrome/Safari keychain)", s: 1 },
+      { t: "A commercial manager — LastPass, 1Password, Dashlane", s: 2 },
+      { t: "Bitwarden, self-hosted Vaultwarden, or KeePass", s: 3 },
+    ]
+  },
+  {
+    q: "What email provider handles your primary inbox?",
+    cat: "Email",
+    opts: [
+      { t: "Gmail, Outlook, or Yahoo — Big Tech reads it all", s: 0 },
+      { t: "Fastmail or Hey — better, but still a company's server", s: 1 },
+      { t: "ProtonMail or Tutanota — end-to-end encrypted", s: 2 },
+      { t: "Self-hosted mail server — full ownership", s: 3 },
+    ]
+  },
+  {
+    q: "Do you use a VPN, and which one?",
+    cat: "VPN",
+    opts: [
+      { t: "No VPN at all — ISP sees everything", s: 0 },
+      { t: "A free VPN or a sketchy no-name service", s: 0 },
+      { t: "Paid mainstream VPN — NordVPN, ExpressVPN, Surfshark", s: 1 },
+      { t: "Proton VPN or Mullvad — audited, no-logs, privacy-first", s: 3 },
+    ]
+  },
+  {
+    q: "What messaging app do you use most?",
+    cat: "Messaging",
+    opts: [
+      { t: "SMS / regular texts — fully unencrypted", s: 0 },
+      { t: "WhatsApp or Telegram — E2E with caveats", s: 1 },
+      { t: "iMessage — encrypted, but Apple holds backup keys", s: 1 },
+      { t: "Signal — open-source, minimal metadata, non-profit", s: 3 },
+    ]
+  },
+  {
+    q: "How do you typically pay for things online?",
+    cat: "Payments",
+    opts: [
+      { t: "Same credit or debit card everywhere — fully traceable", s: 0 },
+      { t: "PayPal or Apple Pay — convenient but centralised", s: 1 },
+      { t: "Virtual cards via Privacy.com — masked real number", s: 2 },
+      { t: "Monero, Bitcoin, or cash — decentralized and private", s: 3 },
+    ]
+  },
+  {
+    q: "Where do your files and photos live?",
+    cat: "Storage",
+    opts: [
+      { t: "Google Drive, iCloud, or Dropbox — Big Tech cloud", s: 0 },
+      { t: "OneDrive — Microsoft's cloud", s: 0 },
+      { t: "Encrypted cloud like Tresorit or Filen", s: 2 },
+      { t: "Self-hosted Nextcloud or local-only drives", s: 3 },
+    ]
+  },
+  {
+    q: "What operating system do you run on your main machine?",
+    cat: "OS",
+    opts: [
+      { t: "Windows — telemetry on by default, Microsoft harvests usage", s: 0 },
+      { t: "macOS — polished but Apple controls the platform", s: 1 },
+      { t: "Linux — open-source, minimal surveillance", s: 2 },
+      { t: "Tails OS or a hardened Linux distro — amnesic or fortified", s: 3 },
+    ]
+  },
+  {
+    q: "How do you block ads and trackers?",
+    cat: "Ad / Tracker Blocking",
+    opts: [
+      { t: "No blocking at all — fully exposed to trackers", s: 0 },
+      { t: "Browser extension like uBlock Origin", s: 2 },
+      { t: "Pi-hole on my home network — blocks DNS-level ads", s: 3 },
+      { t: "Both browser extension + Pi-hole or similar", s: 3 },
+    ]
+  },
+  {
+    q: "Are you running any AI tools, and how?",
+    cat: "AI Privacy",
+    opts: [
+      { t: "ChatGPT, Gemini, Copilot — cloud-only, data retained by provider", s: 0 },
+      { t: "Cloud AI with a privacy-focused provider, custom privacy settings", s: 1 },
+      { t: "Ollama or LM Studio — local LLMs, no data leaves my machine", s: 3 },
+      { t: "I don't use AI tools", s: 2 },
+    ]
+  },
+];
+
+const LEVELS = [
+  {
+    min:0,  max:6,  id:"compromised",
+    label:"COMPROMISED", color:"#ff3a3a", bg:"rgba(255,58,58,0.12)",
+    title:"You're Wide Open",
+    desc:"Right now your data is an open book — Big Tech, your ISP, advertisers, and potentially governments can see most of what you do online. The good news: every tool on this site can help you take back control, one step at a time.",
+    recs:["tor","bitwarden","proton-vpn","proton-mail"]
+  },
+  {
+    min:7,  max:12, id:"exposed",
+    label:"EXPOSED", color:"#ff7a1a", bg:"rgba(255,122,26,0.12)",
+    title:"You're Aware, But Vulnerable",
+    desc:"You've made some privacy-conscious choices, but significant gaps remain. A handful of targeted upgrades — especially around email, VPN, and payments — would dramatically reduce your attack surface.",
+    recs:["mullvad","signal","privacy-com","nextcloud"]
+  },
+  {
+    min:13, max:18, id:"awakening",
+    label:"AWAKENING", color:"#ffb700", bg:"rgba(255,183,0,0.12)",
+    title:"Solid Foundation, Room to Grow",
+    desc:"You've done the basics right. Now it's time to layer in the advanced tools: network-level blocking, self-hosted infrastructure, and local AI that keeps your data entirely off the cloud.",
+    recs:["pi-hole","tails","ollama","sparrow"]
+  },
+  {
+    min:19, max:24, id:"hardening",
+    label:"HARDENING", color:"#00f5ff", bg:"rgba(0,245,255,0.10)",
+    title:"Strong Privacy Posture",
+    desc:"You're operating well above average. At this level, the focus shifts to self-hosting your own infrastructure, running local AI, and ensuring financial sovereignty through crypto and self-custody.",
+    recs:["umbrel","nextcloud","sparrow","tails"]
+  },
+  {
+    min:25, max:30, id:"sovereign",
+    label:"SOVEREIGN", color:"#7b2fff", bg:"rgba(123,47,255,0.14)",
+    title:"Operating at Ghost Level",
+    desc:"You've built an impressive sovereign stack. You're well-protected against mass surveillance, data brokers, and corporate tracking. Share this site with someone who needs it — pay it forward.",
+    recs:["ollama","sparrow","umbrel","pi-hole"]
+  },
+];
+
+const TOOL_MAP = {
+  "tor":        { icon:"🧅", name:"Tor Browser",       url:"https://www.torproject.org", why:"Anonymize your browsing through thousands of volunteer relays." },
+  "bitwarden":  { icon:"🔐", name:"Bitwarden",         url:"https://bitwarden.com",      why:"Stop reusing passwords — generate and store unique ones safely." },
+  "proton-vpn": { icon:"🛡️", name:"Proton VPN",        url:"https://protonvpn.com",      why:"Audited, no-logs VPN to hide traffic from your ISP." },
+  "proton-mail":{ icon:"✉️", name:"Proton Mail",        url:"https://proton.me/mail",     why:"E2E encrypted email even Proton itself can't read." },
+  "mullvad":    { icon:"🎭", name:"Mullvad VPN",        url:"https://mullvad.net",        why:"No email, no account — just an anonymous account number." },
+  "signal":     { icon:"💬", name:"Signal",             url:"https://signal.org",         why:"Drop WhatsApp — Signal keeps zero metadata." },
+  "privacy-com":{ icon:"💳", name:"Privacy.com",        url:"https://privacy.com",        why:"Virtual cards so merchants never see your real card number." },
+  "nextcloud":  { icon:"☁️", name:"Nextcloud",          url:"https://nextcloud.com",      why:"Self-host your own Google Drive with zero cloud dependency." },
+  "pi-hole":    { icon:"🕳️", name:"Pi-hole",            url:"https://pi-hole.net",        why:"Block ads and trackers network-wide — every device, instantly." },
+  "tails":      { icon:"👻", name:"Tails OS",           url:"https://tails.boum.org",     why:"Boot into a fully amnesic OS that leaves zero trace." },
+  "ollama":     { icon:"🦙", name:"Ollama",             url:"https://ollama.com",         why:"Run AI models 100% locally — no prompts ever leave your machine." },
+  "sparrow":    { icon:"🐦", name:"Sparrow Wallet",     url:"https://sparrowwallet.com",  why:"Self-custody your Bitcoin — no exchange can freeze your funds." },
+  "umbrel":     { icon:"⛵", name:"Umbrel",             url:"https://umbrel.com",         why:"One-click home server OS for running your own sovereign stack." },
+  "brave":      { icon:"🦁", name:"Brave Browser",      url:"https://brave.com",          why:"Blocks trackers by default — a huge upgrade from Chrome." },
+};
+
+let currentQ   = 0;
+let answers    = new Array(QUESTIONS.length).fill(null);
+
+function openQuiz() {
+  currentQ = 0;
+  answers  = new Array(QUESTIONS.length).fill(null);
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-questions-panel').style.display = '';
+  document.getElementById('quiz-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderQuestion();
+}
+
+function closeQuiz() {
+  document.getElementById('quiz-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('quiz-overlay')) closeQuiz();
+}
+
+function renderQuestion() {
+  const q   = QUESTIONS[currentQ];
+  const tot = QUESTIONS.length;
+
+  document.getElementById('quiz-step-label').textContent = `Question ${currentQ+1} of ${tot}`;
+  document.getElementById('quiz-q-number').textContent   = `Category — ${q.cat}`;
+  document.getElementById('quiz-question').textContent    = q.q;
+  document.getElementById('quiz-bar').style.width        = `${((currentQ) / tot) * 100}%`;
+
+  const optEl = document.getElementById('quiz-options');
+  const keys  = ['A','B','C','D'];
+  optEl.innerHTML = q.opts.map((o, i) => `
+    <button class="quiz-option${answers[currentQ] === i ? ' selected' : ''}"
+            onclick="selectOption(${i})">
+      <span class="quiz-option-key">${keys[i]}</span>
+      <span class="quiz-option-text">${o.t}</span>
+    </button>`).join('');
+
+  document.getElementById('quiz-prev-btn').disabled = currentQ === 0;
+  document.getElementById('quiz-next-btn').disabled = answers[currentQ] === null;
+  document.getElementById('quiz-next-btn').textContent =
+    currentQ === tot - 1 ? 'See Results →' : 'Next →';
+}
+
+function selectOption(i) {
+  answers[currentQ] = i;
+  renderQuestion();
+}
+
+function quizNext() {
+  if (answers[currentQ] === null) return;
+  if (currentQ < QUESTIONS.length - 1) {
+    currentQ++;
+    renderQuestion();
+  } else {
+    showResults();
+  }
+}
+
+function quizPrev() {
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
+}
+
+function showResults() {
+  // Calculate score
+  const score = answers.reduce((sum, ans, qi) =>
+    sum + (ans !== null ? QUESTIONS[qi].opts[ans].s : 0), 0);
+  const pct   = Math.round((score / 30) * 100);
+
+  // Find level
+  const level = LEVELS.find(l => score >= l.min && score <= l.max) || LEVELS[0];
+
+  // Find weakest categories for targeted recs
+  const weakSlots = answers
+    .map((ans, qi) => ({ qi, s: ans !== null ? QUESTIONS[qi].opts[ans].s : 0 }))
+    .sort((a,b) => a.s - b.s)
+    .slice(0,4);
+
+  // Map weak questions to recommended tools
+  const qToTool = ["brave","bitwarden","proton-mail","mullvad","signal","privacy-com","nextcloud","tails","pi-hole","ollama"];
+  const recKeys = [...new Set([
+    ...weakSlots.map(w => qToTool[w.qi]),
+    ...level.recs
+  ])].slice(0,4);
+
+  // Render
+  document.getElementById('quiz-questions-panel').style.display = 'none';
+  const results = document.getElementById('quiz-results');
+  results.classList.add('show');
+  document.getElementById('quiz-bar').style.width = '100%';
+
+  document.getElementById('result-score-val').textContent = score;
+
+  const badge = document.getElementById('result-level-badge');
+  badge.textContent = level.label;
+  badge.style.background = level.bg;
+  badge.style.color      = level.color;
+  badge.style.border     = `1px solid ${level.color}40`;
+
+  document.getElementById('result-title').textContent = level.title;
+  document.getElementById('result-desc').textContent  = level.desc;
+
+  const bar = document.getElementById('result-bar');
+  bar.style.background = `linear-gradient(to right, ${level.color}88, ${level.color})`;
+  setTimeout(() => { bar.style.width = pct + '%'; }, 50);
+
+  // Score ring color
+  const ring = document.querySelector('.quiz-score-ring');
+  ring.style.borderColor = level.color;
+  ring.style.boxShadow   = `0 0 30px ${level.color}55, inset 0 0 20px ${level.color}22`;
+  document.getElementById('result-score-val').style.color = level.color;
+
+  // Recommendations
+  document.getElementById('result-recs').innerHTML = recKeys.map(k => {
+    const t = TOOL_MAP[k];
+    return `<a class="quiz-rec-card" href="${t.url}" target="_blank" rel="noopener">
+      <div class="quiz-rec-icon">${t.icon}</div>
+      <div class="quiz-rec-name">${t.name}</div>
+      <div class="quiz-rec-why">${t.why}</div>
+      <div class="quiz-rec-arrow">↗ Visit</div>
+    </a>`;
+  }).join('');
+
+  // Update preview score in trigger banner
+  document.getElementById('preview-score').textContent = `${pct}%`;
+}
+
+function resetQuiz() {
+  currentQ = 0;
+  answers  = new Array(QUESTIONS.length).fill(null);
+  document.getElementById('quiz-results').classList.remove('show');
+  document.getElementById('quiz-questions-panel').style.display = '';
+  document.getElementById('result-bar').style.width = '0%';
+  renderQuestion();
+}
+
+// keyboard nav
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('quiz-overlay').classList.contains('open')) return;
+  if (e.key === 'Escape') closeQuiz();
+  if (e.key === 'ArrowRight' || e.key === 'Enter') {
+    if (!document.getElementById('quiz-next-btn').disabled) quizNext();
+  }
+  if (e.key === 'ArrowLeft') quizPrev();
+  const keys = {'a':0,'b':1,'c':2,'d':3};
+  if (keys[e.key.toLowerCase()] !== undefined && document.getElementById('quiz-questions-panel').style.display !== 'none') {
+    selectOption(keys[e.key.toLowerCase()]);
+  }
+});
+</script>
+</body>
+</html>
