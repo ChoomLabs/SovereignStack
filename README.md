@@ -24,7 +24,6 @@ Not sure where to start? Test your digital sovereignty.
 
 - SovereignStack — Built with open-source love. Own your data. Stop renting.
 
-- License
+License
 - This project is licensed under the MIT License – a free and open-source license.
-
-SovereignStack — Built with open-source love. Own your data. Stop renting.
+- https://github.com/ChoomLabs/SovereignStack?tab=MIT-1-ov-file#
