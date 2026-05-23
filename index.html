@@ -503,7 +503,6 @@
     padding: 24px 28px 0;
     display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
   }
-  .suggest-modal-title-wrap {}
   .suggest-modal-eyebrow {
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
     letter-spacing: 0.2em; text-transform: uppercase;
@@ -663,6 +662,222 @@
     .form-row { grid-template-columns: 1fr; }
     .form-submit-row { flex-direction: column; align-items: stretch; }
     .form-submit-btn { justify-content: center; }
+  }
+
+  /* ═══════════════════════════════════════════
+     BEGINNER STACK — START HERE
+     ─────────────────────────────────────────── */
+  #starthere { scroll-margin-top: 80px; }
+
+  .starthere-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 32px; padding-bottom: 20px;
+    border-bottom: 1px solid rgba(57,255,20,0.2);
+  }
+  .starthere-eyebrow {
+    font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--neon-dim); margin-bottom: 8px;
+  }
+  .starthere-title {
+    font-size: 1.7rem; font-weight: 800;
+    letter-spacing: -0.02em; color: var(--text);
+  }
+  .starthere-title span { color: var(--neon); }
+  .starthere-meta {
+    display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  }
+  .starthere-progress-label {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--text-dim); letter-spacing: 0.08em;
+  }
+  .starthere-progress-track {
+    width: 160px; height: 4px;
+    background: rgba(57,255,20,0.1); border-radius: 4px; overflow: hidden;
+  }
+  .starthere-progress-fill {
+    height: 100%; border-radius: 4px;
+    background: linear-gradient(to right, var(--neon-dim), var(--neon));
+    box-shadow: 0 0 8px var(--neon-glow-strong);
+    transition: width 0.5s cubic-bezier(.22,1,.36,1);
+    width: 0%;
+  }
+
+  /* Steps list */
+  .steps-list {
+    display: flex; flex-direction: column; gap: 0;
+    border: 1px solid rgba(57,255,20,0.15);
+    border-radius: 12px; overflow: hidden;
+  }
+
+  .step-row {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 0;
+    background: var(--bg-card);
+    border-bottom: 1px solid rgba(57,255,20,0.08);
+    transition: background 0.2s;
+    position: relative;
+    cursor: pointer;
+  }
+  .step-row:last-child { border-bottom: none; }
+  .step-row:hover { background: var(--bg-card-hover); }
+  .step-row.done { background: rgba(57,255,20,0.04); }
+  .step-row.done:hover { background: rgba(57,255,20,0.07); }
+
+  /* left number column */
+  .step-num-col {
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: flex-start;
+    padding: 24px 0 24px;
+    border-right: 1px solid rgba(57,255,20,0.08);
+    position: relative;
+  }
+  .step-number {
+    font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+    color: var(--text-dim); letter-spacing: 0.1em;
+    width: 28px; height: 28px;
+    border: 1px solid rgba(57,255,20,0.15); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.3s, color 0.3s, background 0.3s, box-shadow 0.3s;
+    font-size: 10px;
+  }
+  .step-row.done .step-number {
+    background: var(--neon); color: var(--bg);
+    border-color: var(--neon);
+    box-shadow: 0 0 10px var(--neon-glow-strong);
+    font-size: 13px;
+  }
+  /* connector line */
+  .step-num-col::after {
+    content: '';
+    position: absolute; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 1px; height: 100%;
+    background: rgba(57,255,20,0.08);
+    top: 52px;
+  }
+  .step-row:last-child .step-num-col::after { display: none; }
+
+  /* main content column */
+  .step-body { padding: 24px 24px 24px 20px; }
+
+  .step-top-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .step-title {
+    font-size: 1rem; font-weight: 800;
+    color: var(--text); letter-spacing: -0.01em;
+    transition: color 0.2s;
+  }
+  .step-row.done .step-title { color: var(--neon); }
+
+  .step-difficulty {
+    font-family: 'Space Mono', monospace; font-size: 8px; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 2px;
+  }
+  .diff-easiest { color: #39ff14; background: rgba(57,255,20,0.1); border: 1px solid rgba(57,255,20,0.2); }
+  .diff-easy    { color: #00f5ff; background: rgba(0,245,255,0.08); border: 1px solid rgba(0,245,255,0.2); }
+  .diff-medium  { color: #ffb700; background: rgba(255,183,0,0.08); border: 1px solid rgba(255,183,0,0.2); }
+  .diff-hard    { color: #ff2d9b; background: rgba(255,45,155,0.08); border: 1px solid rgba(255,45,155,0.2); }
+
+  .step-time {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    color: var(--text-dim); letter-spacing: 0.06em;
+    margin-left: auto;
+  }
+
+  .step-desc {
+    font-size: 0.87rem; color: var(--text-muted);
+    line-height: 1.7; margin-bottom: 14px;
+  }
+  .step-row.done .step-desc { color: var(--text-dim); }
+
+  .step-tool-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--neon-dim); text-decoration: none;
+    border: 1px solid rgba(57,255,20,0.18);
+    padding: 5px 12px; border-radius: 3px;
+    background: rgba(57,255,20,0.04);
+    transition: color 0.2s, border-color 0.2s, background 0.2s, box-shadow 0.2s;
+  }
+  .step-tool-link:hover {
+    color: var(--neon); border-color: rgba(57,255,20,0.45);
+    background: rgba(57,255,20,0.08);
+    box-shadow: 0 0 10px var(--neon-glow);
+  }
+  .step-tool-link .tool-icon { font-size: 14px; }
+
+  /* right checkbox column */
+  .step-check-col {
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px 24px;
+    border-left: 1px solid rgba(57,255,20,0.08);
+  }
+  .step-checkbox {
+    width: 22px; height: 22px; border-radius: 5px;
+    border: 1.5px solid rgba(57,255,20,0.25);
+    background: transparent; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    flex-shrink: 0; font-size: 12px; color: transparent;
+    -webkit-appearance: none; appearance: none;
+  }
+  .step-checkbox:hover {
+    border-color: rgba(57,255,20,0.6);
+    box-shadow: 0 0 8px var(--neon-glow);
+  }
+  .step-checkbox:checked {
+    background: var(--neon); border-color: var(--neon);
+    color: var(--bg);
+    box-shadow: 0 0 12px var(--neon-glow-strong);
+  }
+  /* custom checkmark */
+  .step-checkbox:checked::after {
+    content: '✓'; font-size: 13px; font-weight: 700;
+    color: var(--bg); line-height: 1;
+  }
+
+  /* completion banner */
+  .starthere-complete {
+    display: none; margin-top: 24px;
+    background: rgba(57,255,20,0.06);
+    border: 1px solid rgba(57,255,20,0.25);
+    border-radius: 10px; padding: 24px 28px;
+    align-items: center; gap: 20px;
+  }
+  .starthere-complete.show { display: flex; }
+  .complete-icon {
+    font-size: 32px; flex-shrink: 0;
+    filter: drop-shadow(0 0 10px var(--neon-glow-strong));
+  }
+  .complete-title {
+    font-size: 1rem; font-weight: 800;
+    color: var(--neon); letter-spacing: -0.01em; margin-bottom: 4px;
+  }
+  .complete-sub {
+    font-size: 0.83rem; color: var(--text-muted); line-height: 1.6;
+  }
+  .complete-reset {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); background: transparent;
+    border: 1px solid rgba(57,255,20,0.15); border-radius: 3px;
+    padding: 6px 14px; cursor: pointer; margin-left: auto; flex-shrink: 0;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .complete-reset:hover { color: var(--neon); border-color: rgba(57,255,20,0.4); }
+
+  @media(max-width: 768px) {
+    .step-row { grid-template-columns: 52px 1fr auto; }
+    .step-time { display: none; }
+    .starthere-progress-track { width: 100px; }
+    .starthere-complete { flex-direction: column; text-align: center; }
+    .complete-reset { margin-left: 0; }
   }
 
   /* ── NEWS SECTION — RED ALERT THEME ── */
@@ -1078,6 +1293,7 @@
     <span class="nav-wordmark">SovereignStack</span>
   </a>
   <ul class="nav-links">
+    <li><a href="#starthere" style="color:var(--neon);font-weight:700;">▶ Start Here</a></li>
     <li><a href="#privacy">Privacy</a></li>
     <li><a href="#crypto" class="nav-link-cyan">Crypto</a></li>
     <li><a href="#selfhost" class="nav-link-amber">Self-Host</a></li>
@@ -1130,6 +1346,152 @@
 </div>
 
 <div class="section" id="tools">
+
+  <!-- ── START HERE — BEGINNER STACK ── -->
+  <div id="starthere" style="margin-bottom:70px;">
+    <div class="starthere-header">
+      <div>
+        <div class="starthere-eyebrow">New to privacy? · Do these first</div>
+        <div class="starthere-title">The Beginner <span>Sovereign Stack</span></div>
+      </div>
+      <div class="starthere-meta">
+        <div class="starthere-progress-label" id="sh-progress-label">0 of 5 completed</div>
+        <div class="starthere-progress-track">
+          <div class="starthere-progress-fill" id="sh-progress-fill"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-list">
+
+      <!-- STEP 1 -->
+      <div class="step-row" id="step-row-0" onclick="toggleStep(0)">
+        <div class="step-num-col">
+          <div class="step-number" id="step-num-0">01</div>
+        </div>
+        <div class="step-body">
+          <div class="step-top-row">
+            <div class="step-title">Replace your browser</div>
+            <span class="step-difficulty diff-easiest">Easiest</span>
+            <span class="step-time">⏱ 5 min</span>
+          </div>
+          <p class="step-desc">Your browser is the window through which you experience the entire internet — and Chrome sends everything you do to Google. Brave is a direct drop-in replacement built on the same engine, so every site and extension still works. It blocks ads and trackers by default, no configuration needed. Just download it, import your bookmarks, and you're done. This single switch eliminates thousands of trackers per day.</p>
+          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+            <span class="tool-icon">🦁</span> Brave Browser →
+          </a>
+        </div>
+        <div class="step-check-col">
+          <input type="checkbox" class="step-checkbox" id="step-cb-0" onclick="event.stopPropagation(); toggleStep(0)">
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="step-row" id="step-row-1" onclick="toggleStep(1)">
+        <div class="step-num-col">
+          <div class="step-number" id="step-num-1">02</div>
+        </div>
+        <div class="step-body">
+          <div class="step-top-row">
+            <div class="step-title">Get a password manager</div>
+            <span class="step-difficulty diff-easy">Easy</span>
+            <span class="step-time">⏱ 15 min</span>
+          </div>
+          <p class="step-desc">If you reuse passwords — or let your browser save them — a single data breach can compromise every account you own. Bitwarden generates a unique, random password for every site and syncs them across all your devices with end-to-end encryption. The free tier covers everything you need. Install the browser extension, import your existing passwords in one click, and start replacing weak ones as you log in.</p>
+          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+            <span class="tool-icon">🔐</span> Bitwarden →
+          </a>
+        </div>
+        <div class="step-check-col">
+          <input type="checkbox" class="step-checkbox" id="step-cb-1" onclick="event.stopPropagation(); toggleStep(1)">
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="step-row" id="step-row-2" onclick="toggleStep(2)">
+        <div class="step-num-col">
+          <div class="step-number" id="step-num-2">03</div>
+        </div>
+        <div class="step-body">
+          <div class="step-top-row">
+            <div class="step-title">Switch your email</div>
+            <span class="step-difficulty diff-medium">Medium</span>
+            <span class="step-time">⏱ 30 min</span>
+          </div>
+          <p class="step-desc">Gmail reads your email to build an advertising profile on you — that's the trade you accepted for a free inbox. Proton Mail encrypts your messages so that even Proton itself cannot read them. Create a free account, then forward critical emails and notify your most important contacts of your new address. You don't need to abandon Gmail overnight — migrate gradually over a few weeks. Your privacy improves with every contact you update.</p>
+          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+            <span class="tool-icon">✉️</span> Proton Mail →
+          </a>
+        </div>
+        <div class="step-check-col">
+          <input type="checkbox" class="step-checkbox" id="step-cb-2" onclick="event.stopPropagation(); toggleStep(2)">
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="step-row" id="step-row-3" onclick="toggleStep(3)">
+        <div class="step-num-col">
+          <div class="step-number" id="step-num-3">04</div>
+        </div>
+        <div class="step-body">
+          <div class="step-top-row">
+            <div class="step-title">Turn on a VPN</div>
+            <span class="step-difficulty diff-easy">Easy</span>
+            <span class="step-time">⏱ 10 min</span>
+          </div>
+          <p class="step-desc">Without a VPN, your internet service provider can see every website you visit and legally sell that data to data brokers. A VPN encrypts your traffic and routes it through a server elsewhere, so your ISP only sees encrypted noise. Mullvad is the most anonymous option — it requires no email address to sign up, accepts cash and Monero, and costs a flat €5/month. Proton VPN has a generous free tier if you want to try before paying. Install the app, click connect, and your ISP goes blind.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+              <span class="tool-icon">🎭</span> Mullvad →
+            </a>
+            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+              <span class="tool-icon">🛡️</span> Proton VPN →
+            </a>
+          </div>
+        </div>
+        <div class="step-check-col">
+          <input type="checkbox" class="step-checkbox" id="step-cb-3" onclick="event.stopPropagation(); toggleStep(3)">
+        </div>
+      </div>
+
+      <!-- STEP 5 -->
+      <div class="step-row" id="step-row-4" onclick="toggleStep(4)">
+        <div class="step-num-col">
+          <div class="step-number" id="step-num-4">05</div>
+        </div>
+        <div class="step-body">
+          <div class="step-top-row">
+            <div class="step-title">Kill ads & trackers everywhere</div>
+            <span class="step-difficulty diff-easy">Easy → </span><span class="step-difficulty diff-hard" style="margin-left:-6px;">Advanced</span>
+            <span class="step-time">⏱ 2 min – 1 hr</span>
+          </div>
+          <p class="step-desc">Start with uBlock Origin — a browser extension that blocks ads, trackers, and malware domains with one click. It's free, open-source, and has 50 million users. That handles your browser. When you're ready to go further, Pi-hole is a DNS sinkhole that blocks ads on every device on your network — your phone, smart TV, game console — without installing anything on those devices. It runs on a Raspberry Pi and blocks requests before they even reach your browser.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
+              <span class="tool-icon">🛡️</span> uBlock Origin →
+            </a>
+            <a class="step-tool-link" href="#selfhost" onclick="event.stopPropagation()">
+              <span class="tool-icon">🕳️</span> Pi-hole →
+            </a>
+          </div>
+        </div>
+        <div class="step-check-col">
+          <input type="checkbox" class="step-checkbox" id="step-cb-4" onclick="event.stopPropagation(); toggleStep(4)">
+        </div>
+      </div>
+
+    </div><!-- /steps-list -->
+
+    <!-- Completion banner -->
+    <div class="starthere-complete" id="sh-complete">
+      <div class="complete-icon">⚡</div>
+      <div>
+        <div class="complete-title">Sovereign Stack Activated</div>
+        <p class="complete-sub">You've completed all 5 steps. Your digital footprint is now dramatically smaller than 99% of internet users. Explore the full tool directory below to go even deeper.</p>
+      </div>
+      <button class="complete-reset" onclick="resetSteps()">↺ Reset</button>
+    </div>
+
+  </div>
 
   <!-- ── PRIVACY & SECURITY ── -->
   <div id="privacy" style="margin-bottom:70px;">
@@ -1391,10 +1753,10 @@
   <div id="localai" style="margin-bottom:70px;">
     <div class="section-header">
       <div><div class="section-label">Category 02</div><div class="section-title">Local AI & Offline Tools</div></div>
-      <div class="section-count">04 tools</div>
+      <div class="section-count">03 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-localai">
-      <span class="carousel-progress">01 / 04</span>
+      <span class="carousel-progress">01 / 03</span>
       <div class="carousel-dots"></div>
       <button class="carousel-btn" data-dir="prev">←</button>
       <button class="carousel-btn" data-dir="next">→</button>
@@ -1459,25 +1821,6 @@
           </div>
         </a>
 
-        <a class="card" href="https://openwebui.com" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">🖼️</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Open WebUI <span class="card-tag">AI Interface</span></div>
-            <div class="card-url">openwebui.com</div>
-            <div class="card-desc">A feature-rich, self-hosted web interface for Ollama and OpenAI-compatible APIs — think a private ChatGPT you control entirely. Supports multi-model switching, RAG document ingestion, image generation, voice input, and user management. All running on your own server.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">80K+</div><div class="stat-label">GitHub ★</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2024</div><div class="stat-label">Founded</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">Free</div><div class="stat-label">Self-hosted</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">Ollama frontend</span><span class="pill">RAG support</span><span class="pill">Self-hostable</span><span class="pill">Free</span>
-          </div>
-        </a>
-
       </div>
     </div>
   </div>
@@ -1495,10 +1838,10 @@
   <div id="crypto" style="margin-bottom:70px;">
     <div class="section-header">
       <div><div class="section-label">Category 02</div><div class="section-title">Crypto & Financial Sovereignty</div></div>
-      <div class="section-count">06 tools</div>
+      <div class="section-count">04 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-crypto">
-      <span class="carousel-progress">01 / 06</span>
+      <span class="carousel-progress">01 / 04</span>
       <div class="carousel-dots"></div>
       <button class="carousel-btn" data-dir="prev">←</button>
       <button class="carousel-btn" data-dir="next">→</button>
@@ -1563,44 +1906,6 @@
           </div>
         </a>
 
-        <a class="card" href="https://bisq.network" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">⚖️</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Bisq <span class="card-tag">Decentralized Exchange</span></div>
-            <div class="card-url">bisq.network</div>
-            <div class="card-desc">A fully decentralized, peer-to-peer Bitcoin exchange with no company behind it, no KYC, no sign-up, and no central server to shut down. Trade Bitcoin directly with other humans using fiat, Monero, or other payment methods — financial sovereignty at the exchange layer.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">$1B+</div><div class="stat-label">Traded volume</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2014</div><div class="stat-label">Founded</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">No KYC</div><div class="stat-label">Ever</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">No KYC</span><span class="pill">P2P trading</span><span class="pill">Decentralized</span><span class="pill">Open source</span>
-          </div>
-        </a>
-
-        <a class="card" href="https://wasabiwallet.io" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">🫧</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Wasabi Wallet <span class="card-tag">Bitcoin Privacy</span></div>
-            <div class="card-url">wasabiwallet.io</div>
-            <div class="card-desc">A Bitcoin desktop wallet focused on maximum on-chain privacy through WabiSabi CoinJoin — a trustless coin-mixing protocol that breaks transaction traceability. Built-in Tor routing, coin control, and UTXO management make it the go-to wallet for serious Bitcoin privacy.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">120K+</div><div class="stat-label">Downloads</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">WabiSabi</div><div class="stat-label">CoinJoin</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2018</div><div class="stat-label">Founded</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">CoinJoin</span><span class="pill">Tor built-in</span><span class="pill">Coin control</span><span class="pill">Open source</span>
-          </div>
-        </a>
-
         <a class="card" href="https://btcpayserver.org" target="_blank" rel="noopener">
           <div class="card-top"><div class="card-icon-wrap">⚡</div><span class="card-arrow">↗</span></div>
           <div class="card-body">
@@ -1637,10 +1942,10 @@
   <div id="selfhost" style="margin-bottom:70px;">
     <div class="section-header">
       <div><div class="section-label">Category 03</div><div class="section-title">Self-Hosting & Infrastructure</div></div>
-      <div class="section-count">08 tools</div>
+      <div class="section-count">06 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-selfhost">
-      <span class="carousel-progress">01 / 08</span>
+      <span class="carousel-progress">01 / 06</span>
       <div class="carousel-dots"></div>
       <button class="carousel-btn" data-dir="prev">←</button>
       <button class="carousel-btn" data-dir="next">→</button>
@@ -1759,25 +2064,6 @@
           </div>
           <div class="card-footer">
             <span class="pill">Hypervisor</span><span class="pill">VMs & containers</span><span class="pill">Open source</span><span class="pill">Home lab</span>
-          </div>
-        </a>
-
-        <a class="card" href="https://syncthing.net" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">🔄</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Syncthing <span class="card-tag">File Sync</span></div>
-            <div class="card-url">syncthing.net</div>
-            <div class="card-desc">A continuous, real-time file synchronization tool that syncs directly between your devices — no cloud, no server, no intermediary. Every file transfer is encrypted in transit and your data never touches a third-party server. Works across Linux, macOS, Windows, and Android.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">2M+</div><div class="stat-label">Users</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">60K+</div><div class="stat-label">GitHub ★</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">No cloud</span><span class="pill">P2P sync</span><span class="pill">Encrypted</span><span class="pill">Free</span>
           </div>
         </a>
 
@@ -2836,6 +3122,71 @@ document.addEventListener('keydown', e => {
     closeSuggest();
   }
 });
+</script>
+
+<script>
+/* ── BEGINNER STACK — STEP TRACKER ─────────────────────────────────── */
+(function () {
+  const STORAGE_KEY = 'ss_beginner_steps_v1';
+  const TOTAL = 5;
+
+  function loadSteps() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : new Array(TOTAL).fill(false);
+    } catch { return new Array(TOTAL).fill(false); }
+  }
+
+  function saveSteps(state) {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  }
+
+  function updateUI(state) {
+    const done = state.filter(Boolean).length;
+
+    // Progress bar & label
+    const pct = (done / TOTAL) * 100;
+    document.getElementById('sh-progress-fill').style.width = pct + '%';
+    document.getElementById('sh-progress-label').textContent =
+      `${done} of ${TOTAL} completed`;
+
+    // Each row
+    state.forEach((checked, i) => {
+      const row = document.getElementById(`step-row-${i}`);
+      const cb  = document.getElementById(`step-cb-${i}`);
+      const num = document.getElementById(`step-num-${i}`);
+      if (!row || !cb || !num) return;
+
+      cb.checked = checked;
+      row.classList.toggle('done', checked);
+      num.textContent = checked ? '✓' : String(i + 1).padStart(2, '0');
+    });
+
+    // Completion banner
+    const banner = document.getElementById('sh-complete');
+    if (done === TOTAL) {
+      banner.classList.add('show');
+    } else {
+      banner.classList.remove('show');
+    }
+  }
+
+  window.toggleStep = function (i) {
+    const state = loadSteps();
+    state[i] = !state[i];
+    saveSteps(state);
+    updateUI(state);
+  };
+
+  window.resetSteps = function () {
+    const state = new Array(TOTAL).fill(false);
+    saveSteps(state);
+    updateUI(state);
+  };
+
+  // Init on load
+  updateUI(loadSteps());
+})();
 </script>
 </body>
 </html>
