@@ -26,7 +26,7 @@ New to privacy? Start here. These five tools form the foundation of a secure, pr
     *   **Anonymous Traffic:** Encrypt your ISP's view of your browsing. Accepts cash and Monero, requires no email, and keeps no logs.
     *   *Action:* Download the app, click "Connect," and your ISP goes blind.
 
-5.  **🛡️ uBlock Origin** (*Easy → Advanced*)
+5.  **🚪uBlock Origin** (*Easy → Advanced*)
     *   **Kill Ads Everywhere:** A lightweight browser extension that blocks ads, trackers, and malware.
     *   *Advanced:* Combine with **Pi-hole** to block ads on your entire network (TV, console, smart devices) without installing anything on those devices.
 
