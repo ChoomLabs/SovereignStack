@@ -92,11 +92,6 @@ This directory is built with **open-source love**. There are no affiliate links,
 
 **Contribute:** Know a tool that belongs here? Submit it via our community form. We only list open-source, privacy-respecting, or decentralized tools.
 
-📜 Recent Privacy News (Daily Dispatch)
-
-*   **Signal Refuses UK Order:** Signal Foundation will exit the UK market rather than comply with orders to build surveillance capabilities into the app.
-*   **Apple Removes E2E iCloud:** Apple disabled Advanced Data Protection for UK users following government demands.
-
 *Built for the sovereign web. No ads. No trackers. Just you.*
 
 This project is licensed under the MIT License – a free and open-source license.
