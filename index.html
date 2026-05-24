@@ -503,6 +503,7 @@
     padding: 24px 28px 0;
     display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
   }
+  .suggest-modal-title-wrap {}
   .suggest-modal-eyebrow {
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
     letter-spacing: 0.2em; text-transform: uppercase;
@@ -1351,142 +1352,42 @@
   <div id="starthere" style="margin-bottom:70px;">
     <div class="starthere-header">
       <div>
-        <div class="starthere-eyebrow">New to privacy? · Do these first</div>
+        <div class="starthere-eyebrow" id="sh-eyebrow">New to privacy? · Do these first</div>
         <div class="starthere-title">The Beginner <span>Sovereign Stack</span></div>
       </div>
       <div class="starthere-meta">
-        <div class="starthere-progress-label" id="sh-progress-label">0 of 5 completed</div>
+        <div class="starthere-progress-label" id="sh-progress-label">0 of 10 steps</div>
         <div class="starthere-progress-track">
           <div class="starthere-progress-fill" id="sh-progress-fill"></div>
         </div>
       </div>
     </div>
 
-    <div class="steps-list">
-
-      <!-- STEP 1 -->
-      <div class="step-row" id="step-row-0" onclick="toggleStep(0)">
-        <div class="step-num-col">
-          <div class="step-number" id="step-num-0">01</div>
-        </div>
-        <div class="step-body">
-          <div class="step-top-row">
-            <div class="step-title">Replace your browser</div>
-            <span class="step-difficulty diff-easiest">Easiest</span>
-            <span class="step-time">⏱ 5 min</span>
-          </div>
-          <p class="step-desc">Your browser is the window through which you experience the entire internet — and Chrome sends everything you do to Google. Brave is a direct drop-in replacement built on the same engine, so every site and extension still works. It blocks ads and trackers by default, no configuration needed. Just download it, import your bookmarks, and you're done. This single switch eliminates thousands of trackers per day.</p>
-          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-            <span class="tool-icon">🦁</span> Brave Browser →
-          </a>
-        </div>
-        <div class="step-check-col">
-          <input type="checkbox" class="step-checkbox" id="step-cb-0" onclick="event.stopPropagation(); toggleStep(0)">
-        </div>
+    <!-- Quiz CTA — shown when quiz not yet taken -->
+    <div id="sh-quiz-cta" style="margin-bottom:20px;padding:18px 24px;background:rgba(255,45,155,0.04);border:1px solid rgba(255,45,155,0.18);border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--magenta-dim);margin-bottom:5px;">Tip — Personalize this list</div>
+        <div style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;">Take the 2-minute quiz and we'll pre-check the steps you've already completed, so you only see what you actually need to do.</div>
       </div>
+      <button onclick="openQuiz()" style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#fff;background:var(--magenta);border:none;padding:10px 22px;border-radius:4px;cursor:pointer;flex-shrink:0;transition:box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 0 20px var(--magenta-glow-str)'" onmouseout="this.style.boxShadow='none'">Take the Quiz →</button>
+    </div>
 
-      <!-- STEP 2 -->
-      <div class="step-row" id="step-row-1" onclick="toggleStep(1)">
-        <div class="step-num-col">
-          <div class="step-number" id="step-num-1">02</div>
-        </div>
-        <div class="step-body">
-          <div class="step-top-row">
-            <div class="step-title">Get a password manager</div>
-            <span class="step-difficulty diff-easy">Easy</span>
-            <span class="step-time">⏱ 15 min</span>
-          </div>
-          <p class="step-desc">If you reuse passwords — or let your browser save them — a single data breach can compromise every account you own. Bitwarden generates a unique, random password for every site and syncs them across all your devices with end-to-end encryption. The free tier covers everything you need. Install the browser extension, import your existing passwords in one click, and start replacing weak ones as you log in.</p>
-          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-            <span class="tool-icon">🔐</span> Bitwarden →
-          </a>
-        </div>
-        <div class="step-check-col">
-          <input type="checkbox" class="step-checkbox" id="step-cb-1" onclick="event.stopPropagation(); toggleStep(1)">
-        </div>
-      </div>
+    <!-- Personalized badge — shown after quiz taken -->
+    <div id="sh-personalized-badge" style="display:none;margin-bottom:20px;padding:12px 20px;background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.15);border-radius:6px;display:flex;align-items:center;gap:12px;">
+      <span style="font-size:16px;">✓</span>
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--neon-dim);">Personalized from your quiz results — steps you've handled are pre-checked</span>
+      <button onclick="openQuiz()" style="margin-left:auto;font-family:'Space Mono',monospace;font-size:9px;color:var(--text-dim);background:none;border:1px solid rgba(57,255,20,0.12);border-radius:3px;padding:4px 10px;cursor:pointer;flex-shrink:0;" title="Retake quiz">Retake quiz</button>
+    </div>
 
-      <!-- STEP 3 -->
-      <div class="step-row" id="step-row-2" onclick="toggleStep(2)">
-        <div class="step-num-col">
-          <div class="step-number" id="step-num-2">03</div>
-        </div>
-        <div class="step-body">
-          <div class="step-top-row">
-            <div class="step-title">Switch your email</div>
-            <span class="step-difficulty diff-medium">Medium</span>
-            <span class="step-time">⏱ 30 min</span>
-          </div>
-          <p class="step-desc">Gmail reads your email to build an advertising profile on you — that's the trade you accepted for a free inbox. Proton Mail encrypts your messages so that even Proton itself cannot read them. Create a free account, then forward critical emails and notify your most important contacts of your new address. You don't need to abandon Gmail overnight — migrate gradually over a few weeks. Your privacy improves with every contact you update.</p>
-          <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-            <span class="tool-icon">✉️</span> Proton Mail →
-          </a>
-        </div>
-        <div class="step-check-col">
-          <input type="checkbox" class="step-checkbox" id="step-cb-2" onclick="event.stopPropagation(); toggleStep(2)">
-        </div>
-      </div>
-
-      <!-- STEP 4 -->
-      <div class="step-row" id="step-row-3" onclick="toggleStep(3)">
-        <div class="step-num-col">
-          <div class="step-number" id="step-num-3">04</div>
-        </div>
-        <div class="step-body">
-          <div class="step-top-row">
-            <div class="step-title">Turn on a VPN</div>
-            <span class="step-difficulty diff-easy">Easy</span>
-            <span class="step-time">⏱ 10 min</span>
-          </div>
-          <p class="step-desc">Without a VPN, your internet service provider can see every website you visit and legally sell that data to data brokers. A VPN encrypts your traffic and routes it through a server elsewhere, so your ISP only sees encrypted noise. Mullvad is the most anonymous option — it requires no email address to sign up, accepts cash and Monero, and costs a flat €5/month. Proton VPN has a generous free tier if you want to try before paying. Install the app, click connect, and your ISP goes blind.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-              <span class="tool-icon">🎭</span> Mullvad →
-            </a>
-            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-              <span class="tool-icon">🛡️</span> Proton VPN →
-            </a>
-          </div>
-        </div>
-        <div class="step-check-col">
-          <input type="checkbox" class="step-checkbox" id="step-cb-3" onclick="event.stopPropagation(); toggleStep(3)">
-        </div>
-      </div>
-
-      <!-- STEP 5 -->
-      <div class="step-row" id="step-row-4" onclick="toggleStep(4)">
-        <div class="step-num-col">
-          <div class="step-number" id="step-num-4">05</div>
-        </div>
-        <div class="step-body">
-          <div class="step-top-row">
-            <div class="step-title">Kill ads & trackers everywhere</div>
-            <span class="step-difficulty diff-easy">Easy → </span><span class="step-difficulty diff-hard" style="margin-left:-6px;">Advanced</span>
-            <span class="step-time">⏱ 2 min – 1 hr</span>
-          </div>
-          <p class="step-desc">Start with uBlock Origin — a browser extension that blocks ads, trackers, and malware domains with one click. It's free, open-source, and has 50 million users. That handles your browser. When you're ready to go further, Pi-hole is a DNS sinkhole that blocks ads on every device on your network — your phone, smart TV, game console — without installing anything on those devices. It runs on a Raspberry Pi and blocks requests before they even reach your browser.</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;">
-            <a class="step-tool-link" href="#privacy" onclick="event.stopPropagation()">
-              <span class="tool-icon">🛡️</span> uBlock Origin →
-            </a>
-            <a class="step-tool-link" href="#selfhost" onclick="event.stopPropagation()">
-              <span class="tool-icon">🕳️</span> Pi-hole →
-            </a>
-          </div>
-        </div>
-        <div class="step-check-col">
-          <input type="checkbox" class="step-checkbox" id="step-cb-4" onclick="event.stopPropagation(); toggleStep(4)">
-        </div>
-      </div>
-
-    </div><!-- /steps-list -->
+    <!-- Dynamic steps injected by JS -->
+    <div class="steps-list" id="steps-list"></div>
 
     <!-- Completion banner -->
     <div class="starthere-complete" id="sh-complete">
       <div class="complete-icon">⚡</div>
       <div>
         <div class="complete-title">Sovereign Stack Activated</div>
-        <p class="complete-sub">You've completed all 5 steps. Your digital footprint is now dramatically smaller than 99% of internet users. Explore the full tool directory below to go even deeper.</p>
+        <p class="complete-sub">You've completed every step. Your digital footprint is now dramatically smaller than 99% of internet users. Explore the full tool directory below to go even deeper.</p>
       </div>
       <button class="complete-reset" onclick="resetSteps()">↺ Reset</button>
     </div>
@@ -2363,6 +2264,42 @@
 </script>
 
 <script>
+/* ── AUTO-SCROLL CAROUSELS ── */
+(function () {
+  const INTERVAL   = 3000;
+  const PAUSE_AFTER = 6000;
+
+  document.querySelectorAll('.carousel-controls').forEach(controls => {
+    const track = document.getElementById(controls.dataset.carousel);
+    if (!track) return;
+    const cards = Array.from(track.children);
+    const total = cards.length;
+    let paused = false, pauseTimer;
+
+    function currentIndex() {
+      return Math.round(track.scrollLeft / cards[0].offsetWidth);
+    }
+    function goTo(idx) {
+      idx = ((idx % total) + total) % total;
+      track.scrollTo({ left: cards[idx].offsetLeft, behavior: 'smooth' });
+    }
+    function pause() {
+      paused = true;
+      clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => { paused = false; }, PAUSE_AFTER);
+    }
+
+    setInterval(() => { if (!paused) goTo(currentIndex() + 1); }, INTERVAL);
+
+    track.addEventListener('scroll',     pause, { passive: true });
+    track.addEventListener('touchstart', pause, { passive: true });
+    controls.querySelectorAll('.carousel-btn, .carousel-dot')
+      .forEach(el => el.addEventListener('click', pause));
+  });
+})();
+</script>
+
+<script>
 /* ── DAILY NEWS LOADER — curated pool, rotates daily, zero API deps ── */
 (function () {
   const CACHE_KEY = 'ss_news_v4';
@@ -2924,6 +2861,35 @@ function showResults() {
 
   // Update preview score in trigger banner
   document.getElementById('preview-score').textContent = `${pct}%`;
+
+  // ── Feed results into beginner stack ──
+  if (typeof feedQuizToStack === 'function') feedQuizToStack(answers);
+
+  // Show "stack updated" notice in results if not already there
+  const existingNotice = document.getElementById('quiz-stack-notice');
+  if (!existingNotice) {
+    const notice = document.createElement('div');
+    notice.id = 'quiz-stack-notice';
+    notice.style.cssText = `
+      margin-top: 20px; padding: 12px 16px;
+      background: rgba(57,255,20,0.06);
+      border: 1px solid rgba(57,255,20,0.2);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px; flex-wrap: wrap;
+    `;
+    notice.innerHTML = `
+      <span style="font-family:'Space Mono',monospace;font-size:9px;font-weight:700;
+        letter-spacing:0.12em;text-transform:uppercase;color:var(--neon-dim);">
+        ✓ Your Beginner Stack has been personalized
+      </span>
+      <a href="#starthere" onclick="closeQuiz()" style="font-family:'Space Mono',monospace;
+        font-size:9px;color:var(--neon);text-decoration:none;letter-spacing:0.08em;
+        text-transform:uppercase;border:1px solid rgba(57,255,20,0.3);padding:4px 12px;
+        border-radius:3px;">View My Stack ↓</a>
+    `;
+    document.getElementById('quiz-results').appendChild(notice);
+  }
 }
 
 function resetQuiz() {
@@ -2932,6 +2898,8 @@ function resetQuiz() {
   document.getElementById('quiz-results').classList.remove('show');
   document.getElementById('quiz-questions-panel').style.display = '';
   document.getElementById('result-bar').style.width = '0%';
+  const n = document.getElementById('quiz-stack-notice');
+  if (n) n.remove();
   renderQuestion();
 }
 
@@ -2956,7 +2924,7 @@ document.addEventListener('keydown', e => {
 // !! SETUP: Create a free form at https://formspree.io, then paste your
 //    form endpoint ID below (the part after formspree.io/f/).
 //    It takes about 60 seconds — no account password required.
-const FORMSPREE_ID = 'mzdwgdgr';
+const FORMSPREE_ID = 'YOUR_FORM_ID';
 
 function openSuggest() {
   const overlay = document.getElementById('suggest-overlay');
@@ -3054,7 +3022,7 @@ function clearSuggestForm() {
 async function submitSuggest() {
   if (!validateAll()) return;
 
-  if (FORMSPREE_ID === 'mzdwgdgr') {
+  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
     // Dev mode — show success without actually submitting
     showSuggestSuccess();
     return;
@@ -3125,67 +3093,216 @@ document.addEventListener('keydown', e => {
 </script>
 
 <script>
-/* ── BEGINNER STACK — STEP TRACKER ─────────────────────────────────── */
+/* ── SOVEREIGN STEPS — shared data for quiz + beginner stack ─────────
+   To add a new app: add/edit the relevant step's tools array.
+   quizIndex maps to the QUESTIONS array (0-based).
+   threshold = minimum quiz score on that question to be "already handled".
+   ─────────────────────────────────────────────────────────────────── */
+const SOVEREIGN_STEPS = [
+  {
+    id: 'browser', quizIndex: 0, threshold: 2,
+    title: 'Replace your browser',
+    difficulty: 'diff-easiest', diffLabel: 'Easiest', time: '5 min',
+    desc: 'Your browser is the window through which you experience the entire internet — and Chrome sends everything you do to Google. Brave is a direct drop-in replacement built on the same engine, so every site and extension still works. It blocks ads and trackers by default, no configuration needed. Just download it, import your bookmarks, and you\'re done.',
+    tools: [{ icon: '🦁', name: 'Brave Browser', href: '#privacy' }],
+  },
+  {
+    id: 'passwords', quizIndex: 1, threshold: 2,
+    title: 'Get a password manager',
+    difficulty: 'diff-easy', diffLabel: 'Easy', time: '15 min',
+    desc: 'If you reuse passwords, a single data breach can compromise every account you own. Bitwarden generates a unique, random password for every site and syncs across all your devices with end-to-end encryption. The free tier covers everything. Install the browser extension, import your existing passwords, and start replacing weak ones as you log in.',
+    tools: [{ icon: '🔐', name: 'Bitwarden', href: '#privacy' }],
+  },
+  {
+    id: 'email', quizIndex: 2, threshold: 2,
+    title: 'Switch your email',
+    difficulty: 'diff-medium', diffLabel: 'Medium', time: '30 min',
+    desc: 'Gmail reads your email to build an advertising profile on you. Proton Mail and Tuta encrypt messages so that even they cannot read them. Create a free account, forward critical emails, and migrate contacts gradually over a few weeks. Your privacy improves with every contact you update.',
+    tools: [
+      { icon: '✉️', name: 'Proton Mail', href: '#privacy' },
+      { icon: '🔒', name: 'Tuta Mail', href: '#privacy' },
+    ],
+  },
+  {
+    id: 'vpn', quizIndex: 3, threshold: 2,
+    title: 'Turn on a VPN',
+    difficulty: 'diff-easy', diffLabel: 'Easy', time: '10 min',
+    desc: 'Without a VPN, your internet provider can see every site you visit and legally sell that data. A VPN encrypts your traffic so your ISP only sees noise. Mullvad requires no email to sign up and accepts cash. Proton VPN has a generous free tier to start with.',
+    tools: [
+      { icon: '🎭', name: 'Mullvad VPN', href: '#privacy' },
+      { icon: '🛡️', name: 'Proton VPN', href: '#privacy' },
+    ],
+  },
+  {
+    id: 'messaging', quizIndex: 4, threshold: 2,
+    title: 'Switch to encrypted messaging',
+    difficulty: 'diff-easy', diffLabel: 'Easy', time: '10 min',
+    desc: 'SMS is completely unencrypted. WhatsApp is owned by Meta. Signal is end-to-end encrypted, non-profit, and retains virtually no metadata. Session goes further — it requires no phone number, just a random ID, and routes messages through a decentralized network.',
+    tools: [
+      { icon: '💬', name: 'Signal', href: '#privacy' },
+      { icon: '🪪', name: 'Session', href: '#privacy' },
+    ],
+  },
+  {
+    id: 'adblock', quizIndex: 8, threshold: 1,
+    title: 'Block ads & trackers everywhere',
+    difficulty: 'diff-easy', diffLabel: 'Easy → Advanced', time: '2 min – 1 hr',
+    desc: 'uBlock Origin blocks ads in your browser in one click — 50M+ users, open source, and free. For the whole house, Pi-hole is a network-wide DNS blocker that stops ads on every device including your TV and phone without installing anything on those devices.',
+    tools: [
+      { icon: '🛡️', name: 'uBlock Origin', href: '#privacy' },
+      { icon: '🕳️', name: 'Pi-hole', href: '#selfhost' },
+    ],
+  },
+  {
+    id: 'storage', quizIndex: 6, threshold: 2,
+    title: 'Move off Big Tech cloud storage',
+    difficulty: 'diff-medium', diffLabel: 'Medium', time: '1 hr',
+    desc: 'Google Drive and iCloud give the provider full access to your files. Nextcloud is your own private cloud running on your hardware — sync files, photos, calendars, and contacts across all devices without a single byte touching someone else\'s server.',
+    tools: [{ icon: '☁️', name: 'Nextcloud', href: '#selfhost' }],
+  },
+  {
+    id: 'payments', quizIndex: 5, threshold: 2,
+    title: 'Explore financial sovereignty',
+    difficulty: 'diff-hard', diffLabel: 'Advanced', time: '1–2 hrs',
+    desc: 'Every card transaction creates a permanent record linking your identity to your purchases. Bitcoin gives you self-custody of your funds. Monero makes every transaction private by default — sender, recipient, and amount are all hidden using cryptographic proofs.',
+    tools: [
+      { icon: '₿', name: 'Bitcoin Wallet', href: '#crypto' },
+      { icon: '🔮', name: 'Monero', href: '#crypto' },
+    ],
+  },
+  {
+    id: 'ai', quizIndex: 9, threshold: 2,
+    title: 'Run AI locally',
+    difficulty: 'diff-medium', diffLabel: 'Medium', time: '20 min',
+    desc: 'Every prompt you send to ChatGPT or Gemini is stored and used to train their models. Ollama lets you run powerful language models like Llama 3 and Mistral entirely on your own hardware — no API keys, no usage limits, and no data ever leaves your machine.',
+    tools: [{ icon: '🦙', name: 'Ollama', href: '#localai' }],
+  },
+];
+
+/* ── BEGINNER STACK ────────────────────────────────────────────────── */
 (function () {
-  const STORAGE_KEY = 'ss_beginner_steps_v1';
-  const TOTAL = 5;
+  const STEPS_KEY    = 'ss_beginner_steps_v2';
+  const QUIZ_SRC_KEY = 'ss_steps_from_quiz';
+  const TOTAL        = SOVEREIGN_STEPS.length;
 
-  function loadSteps() {
+  function loadState() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : new Array(TOTAL).fill(false);
-    } catch { return new Array(TOTAL).fill(false); }
+      const raw = localStorage.getItem(STEPS_KEY);
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (parsed && parsed.length === TOTAL) return parsed;
+    } catch {}
+    return new Array(TOTAL).fill(false);
   }
 
-  function saveSteps(state) {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch {}
+  function saveState(state) {
+    try { localStorage.setItem(STEPS_KEY, JSON.stringify(state)); } catch {}
   }
 
-  function updateUI(state) {
+  function isFromQuiz() {
+    try { return localStorage.getItem(QUIZ_SRC_KEY) === 'true'; } catch { return false; }
+  }
+
+  // ── Render all step rows into #steps-list ──
+  function renderStepRows(state) {
+    const list = document.getElementById('steps-list');
+    if (!list) return;
+
+    // Sort: unchecked first (by original order), checked last
+    const indices = SOVEREIGN_STEPS.map((_, i) => i);
+    const needed  = indices.filter(i => !state[i]);
+    const done    = indices.filter(i =>  state[i]);
+    const sorted  = [...needed, ...done];
+
+    list.innerHTML = sorted.map((origIdx, displayIdx) => {
+      const step    = SOVEREIGN_STEPS[origIdx];
+      const checked = state[origIdx];
+      const num     = checked ? '✓' : String(displayIdx + 1).padStart(2, '0');
+      const toolsHtml = step.tools.map(t =>
+        `<a class="step-tool-link" href="${t.href}" onclick="event.stopPropagation()">
+          <span class="tool-icon">${t.icon}</span> ${t.name} →
+        </a>`).join('');
+      return `
+        <div class="step-row${checked ? ' done' : ''}" id="step-row-${origIdx}" onclick="toggleStep(${origIdx})">
+          <div class="step-num-col">
+            <div class="step-number" id="step-num-${origIdx}">${num}</div>
+          </div>
+          <div class="step-body">
+            <div class="step-top-row">
+              <div class="step-title">${step.title}</div>
+              <span class="step-difficulty ${step.difficulty}">${step.diffLabel}</span>
+              <span class="step-time">⏱ ${step.time}</span>
+            </div>
+            <p class="step-desc">${step.desc}</p>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;">${toolsHtml}</div>
+          </div>
+          <div class="step-check-col">
+            <input type="checkbox" class="step-checkbox" id="step-cb-${origIdx}"
+              ${checked ? 'checked' : ''}
+              onclick="event.stopPropagation(); toggleStep(${origIdx})">
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ── Update progress bar, badges, completion banner ──
+  function updateMeta(state) {
     const done = state.filter(Boolean).length;
+    const pct  = (done / TOTAL) * 100;
 
-    // Progress bar & label
-    const pct = (done / TOTAL) * 100;
     document.getElementById('sh-progress-fill').style.width = pct + '%';
     document.getElementById('sh-progress-label').textContent =
       `${done} of ${TOTAL} completed`;
 
-    // Each row
-    state.forEach((checked, i) => {
-      const row = document.getElementById(`step-row-${i}`);
-      const cb  = document.getElementById(`step-cb-${i}`);
-      const num = document.getElementById(`step-num-${i}`);
-      if (!row || !cb || !num) return;
-
-      cb.checked = checked;
-      row.classList.toggle('done', checked);
-      num.textContent = checked ? '✓' : String(i + 1).padStart(2, '0');
-    });
+    // Quiz CTA vs personalized badge
+    const fromQuiz = isFromQuiz();
+    const cta   = document.getElementById('sh-quiz-cta');
+    const badge = document.getElementById('sh-personalized-badge');
+    if (cta)   cta.style.display   = fromQuiz ? 'none'  : 'flex';
+    if (badge) badge.style.display = fromQuiz ? 'flex'  : 'none';
 
     // Completion banner
     const banner = document.getElementById('sh-complete');
-    if (done === TOTAL) {
-      banner.classList.add('show');
-    } else {
-      banner.classList.remove('show');
-    }
+    if (banner) banner.classList.toggle('show', done === TOTAL);
   }
 
-  window.toggleStep = function (i) {
-    const state = loadSteps();
-    state[i] = !state[i];
-    saveSteps(state);
-    updateUI(state);
+  function fullRender() {
+    const state = loadState();
+    renderStepRows(state);
+    updateMeta(state);
+  }
+
+  // ── Public API ──
+  window.toggleStep = function (origIdx) {
+    const state = loadState();
+    state[origIdx] = !state[origIdx];
+    saveState(state);
+    renderStepRows(state);   // re-sort on toggle
+    updateMeta(state);
   };
 
   window.resetSteps = function () {
-    const state = new Array(TOTAL).fill(false);
-    saveSteps(state);
-    updateUI(state);
+    try {
+      localStorage.removeItem(STEPS_KEY);
+      localStorage.removeItem(QUIZ_SRC_KEY);
+    } catch {}
+    fullRender();
   };
 
-  // Init on load
-  updateUI(loadSteps());
+  // Called by quiz after completion
+  window.feedQuizToStack = function (answers) {
+    const state = SOVEREIGN_STEPS.map(step => {
+      const qIdx  = step.quizIndex;
+      const score = answers[qIdx] !== null && answers[qIdx] !== undefined
+        ? QUESTIONS[qIdx].opts[answers[qIdx]].s : 0;
+      return score >= step.threshold;
+    });
+    saveState(state);
+    try { localStorage.setItem(QUIZ_SRC_KEY, 'true'); } catch {}
+    fullRender();
+  };
+
+  // Init
+  fullRender();
 })();
 </script>
 </body>
