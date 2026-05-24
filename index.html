@@ -503,7 +503,6 @@
     padding: 24px 28px 0;
     display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
   }
-  .suggest-modal-title-wrap {}
   .suggest-modal-eyebrow {
     font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700;
     letter-spacing: 0.2em; text-transform: uppercase;
@@ -1102,6 +1101,35 @@
      SECTION COLOUR THEMES
      ─────────────────────────────────────────── */
 
+  /* ── ENCRYPTED COMMS — MAGENTA ── */
+  #comms .section-header  { border-bottom-color: var(--magenta-border); }
+  #comms .section-label   { color: var(--magenta-dim); }
+  #comms .section-count   { color: rgba(255,45,155,0.35); }
+  #comms .carousel-outer  { border-color: var(--magenta-border); }
+  #comms .carousel-track  { background: var(--magenta-border); }
+  #comms .carousel-btn    { color: var(--magenta); border-color: var(--magenta-border); }
+  #comms .carousel-btn:hover:not(:disabled) {
+    border-color: rgba(255,45,155,0.6);
+    box-shadow: 0 0 14px var(--magenta-glow);
+  }
+  #comms .carousel-dot.active {
+    background: var(--magenta);
+    box-shadow: 0 0 6px var(--magenta-glow-str);
+  }
+  #comms .card { border-right-color: var(--magenta-border); }
+  #comms .card:hover .card-icon-wrap {
+    box-shadow: 0 0 20px var(--magenta-glow);
+    border-color: rgba(255,45,155,0.5);
+  }
+  #comms .card:hover .card-arrow { color: var(--magenta); }
+  #comms .card-tag  { color: var(--magenta-dim); background: rgba(255,45,155,0.08); border-color: rgba(255,45,155,0.2); }
+  #comms .stat-val  { color: var(--magenta); }
+  #comms .card-stats { border-color: rgba(255,45,155,0.1); }
+  #comms .card-footer { border-color: rgba(255,45,155,0.08); }
+  #comms .pill { border-color: rgba(255,45,155,0.14); }
+  #comms .card-icon-wrap { border-color: rgba(255,45,155,0.22); background: rgba(255,45,155,0.06); }
+  #comms .stat-div { background: rgba(255,45,155,0.12); }
+
   /* ── CRYPTO — CYAN ── */
   #crypto .section-header   { border-bottom-color: var(--cyan-border); }
   #crypto .section-label    { color: var(--cyan-dim); }
@@ -1296,6 +1324,7 @@
   <ul class="nav-links">
     <li><a href="#starthere" style="color:var(--neon);font-weight:700;">▶ Start Here</a></li>
     <li><a href="#privacy">Privacy</a></li>
+    <li><a href="#comms" class="nav-link-magenta">Comms</a></li>
     <li><a href="#crypto" class="nav-link-cyan">Crypto</a></li>
     <li><a href="#selfhost" class="nav-link-amber">Self-Host</a></li>
     <li><a href="#localai" class="nav-link-violet">Local AI</a></li>
@@ -1398,7 +1427,7 @@
   <div id="privacy" style="margin-bottom:70px;">
     <div class="section-header">
       <div><div class="section-label">Category 01</div><div class="section-title">Privacy & Security</div></div>
-      <div class="section-count">14 tools</div>
+      <div class="section-count">09 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-privacy">
       <span class="carousel-progress">01 / 14</span>
@@ -1444,25 +1473,6 @@
           </div>
           <div class="card-footer">
             <span class="pill">No-logs</span><span class="pill">Open source</span><span class="pill">Audited</span><span class="pill">Switzerland</span>
-          </div>
-        </a>
-
-        <a class="card" href="https://proton.me/mail" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">✉️</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Proton Mail <span class="card-tag">Email</span></div>
-            <div class="card-url">proton.me/mail</div>
-            <div class="card-desc">End-to-end encrypted email that even Proton cannot read. Built on open standards, hosted in Switzerland, and trusted by millions of journalists, activists, and privacy-conscious users worldwide.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">100M+</div><div class="stat-label">Accounts</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">50+</div><div class="stat-label">Countries</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">E2E Encrypted</span><span class="pill">Zero-access</span><span class="pill">Free tier</span><span class="pill">Open source</span>
           </div>
         </a>
 
@@ -1542,25 +1552,6 @@
           </div>
         </a>
 
-        <a class="card" href="https://signal.org" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">💬</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">Signal <span class="card-tag">Encrypted Messaging</span></div>
-            <div class="card-url">signal.org</div>
-            <div class="card-desc">The gold standard for private communication. Every message, call, and file is end-to-end encrypted by default using the open Signal Protocol. Non-profit run, zero ads, retains virtually no metadata — not even message timestamps.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">40M+</div><div class="stat-label">Users</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">0</div><div class="stat-label">Ads ever</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">E2E Encrypted</span><span class="pill">Non-profit</span><span class="pill">Open source</span><span class="pill">No metadata</span>
-          </div>
-        </a>
-
         <a class="card" href="https://haveibeenpwned.com" target="_blank" rel="noopener">
           <div class="card-top"><div class="card-icon-wrap">🔎</div><span class="card-arrow">↗</span></div>
           <div class="card-body">
@@ -1599,25 +1590,6 @@
           </div>
         </a>
 
-        <a class="card" href="https://simplex.chat" target="_blank" rel="noopener">
-          <div class="card-top"><div class="card-icon-wrap">⬡</div><span class="card-arrow">↗</span></div>
-          <div class="card-body">
-            <div class="card-name">SimpleX Chat <span class="card-tag">Anonymous Messaging</span></div>
-            <div class="card-url">simplex.chat</div>
-            <div class="card-desc">The only messenger with no user IDs whatsoever — not even a random number. No phone number, no email, no username tied to your identity. Messages route through temporary relay servers you can self-host, making metadata analysis essentially impossible.</div>
-          </div>
-          <div class="card-stats">
-            <div class="stat"><div class="stat-val">500K+</div><div class="stat-label">Users</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">2022</div><div class="stat-label">Founded</div></div>
-            <div class="stat-div"></div>
-            <div class="stat"><div class="stat-val">No IDs</div><div class="stat-label">At all</div></div>
-          </div>
-          <div class="card-footer">
-            <span class="pill">No user IDs</span><span class="pill">Self-hostable</span><span class="pill">Open source</span><span class="pill">Free</span>
-          </div>
-        </a>
-
         <a class="card" href="https://ublockorigin.com" target="_blank" rel="noopener">
           <div class="card-top"><div class="card-icon-wrap">🛡️</div><span class="card-arrow">↗</span></div>
           <div class="card-body">
@@ -1641,8 +1613,102 @@
     </div>
   </div>
 
-  <!-- QUOTE 2 (was Assange) now becomes: ELLSBERG — leads into Local AI -->
-  <div style="margin-bottom:70px;">
+  <!-- ── ENCRYPTED COMMUNICATION ── -->
+  <div id="comms" style="margin-bottom:70px;">
+    <div class="section-header">
+      <div><div class="section-label">Category 02</div><div class="section-title">Encrypted Communication</div></div>
+      <div class="section-count">04 tools</div>
+    </div>
+    <div class="carousel-controls" data-carousel="c-comms">
+      <span class="carousel-progress">01 / 04</span>
+      <div class="carousel-dots"></div>
+      <button class="carousel-btn" data-dir="prev">←</button>
+      <button class="carousel-btn" data-dir="next">→</button>
+    </div>
+    <div class="carousel-outer">
+      <div class="carousel-track" id="c-comms">
+
+        <a class="card" href="https://signal.org" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">💬</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Signal <span class="card-tag">Encrypted Messaging</span></div>
+            <div class="card-url">signal.org</div>
+            <div class="card-desc">The gold standard for private communication. Every message, call, and file is end-to-end encrypted by default using the open Signal Protocol. Non-profit run, zero ads, retains virtually no metadata — not even message timestamps.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">40M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">0</div><div class="stat-label">Ads ever</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">E2E Encrypted</span><span class="pill">Non-profit</span><span class="pill">Open source</span><span class="pill">No metadata</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://proton.me/mail" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">✉️</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Proton Mail <span class="card-tag">Email</span></div>
+            <div class="card-url">proton.me/mail</div>
+            <div class="card-desc">End-to-end encrypted email that even Proton cannot read. Built on open standards, hosted in Switzerland, and trusted by millions of journalists, activists, and privacy-conscious users worldwide.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">100M+</div><div class="stat-label">Accounts</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2013</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">50+</div><div class="stat-label">Countries</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">E2E Encrypted</span><span class="pill">Zero-access</span><span class="pill">Free tier</span><span class="pill">Open source</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://tuta.com" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🔒</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Tuta Mail <span class="card-tag">Email</span></div>
+            <div class="card-url">tuta.com</div>
+            <div class="card-desc">A fully end-to-end encrypted email service that encrypts not just message content but also subject lines, sender names, and metadata — something even ProtonMail doesn't do by default. Open-source, built in Germany under strict GDPR law, with a generous free tier.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">10M+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2011</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Germany</div><div class="stat-label">Based</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Subject encrypted</span><span class="pill">Open source</span><span class="pill">Free tier</span><span class="pill">GDPR</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://simplex.chat" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">⬡</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">SimpleX Chat <span class="card-tag">Anonymous Messaging</span></div>
+            <div class="card-url">simplex.chat</div>
+            <div class="card-desc">The only messenger with no user IDs whatsoever — not even a random number. No phone number, no email, no username tied to your identity. Messages route through temporary relay servers you can self-host, making metadata analysis essentially impossible.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">500K+</div><div class="stat-label">Users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2022</div><div class="stat-label">Founded</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">No IDs</div><div class="stat-label">At all</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">No user IDs</span><span class="pill">Self-hostable</span><span class="pill">Open source</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE 2 (was Assange) now becomes: ELLSBERG — leads into Local AI -->  <div style="margin-bottom:70px;">
     <div class="quote-inner dim quote-violet">
       <div class="quote-mark">"</div>
       <p class="quote-text">Secrecy is the keystone of all tyranny. Not force, but secrecy — censorship. When any government or any church for that matter undertakes to say to its subjects, "This you may not read, this you must not see, this you are forbidden to know," the end result is tyranny and oppression.</p>
@@ -1653,8 +1719,8 @@
   <!-- ── LOCAL AI ── -->
   <div id="localai" style="margin-bottom:70px;">
     <div class="section-header">
-      <div><div class="section-label">Category 02</div><div class="section-title">Local AI & Offline Tools</div></div>
-      <div class="section-count">03 tools</div>
+      <div><div class="section-label">Category 03</div><div class="section-title">Local AI & Offline Tools</div></div>
+      <div class="section-count">04 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-localai">
       <span class="carousel-progress">01 / 03</span>
@@ -1722,6 +1788,25 @@
           </div>
         </a>
 
+        <a class="card" href="https://locallyai.app" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🤖</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">LocallyAI <span class="card-tag">Local AI</span></div>
+            <div class="card-url">locallyai.app</div>
+            <div class="card-desc">A privacy-first desktop app to run AI models entirely on your own machine. Chat with LLMs like Llama and Mistral with zero data sent to the cloud — no subscriptions, no accounts, no telemetry. Your conversations stay on your device, always.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Private</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Free</div><div class="stat-label">To use</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">Offline</div><div class="stat-label">Capable</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">100% local</span><span class="pill">No account</span><span class="pill">Privacy-safe</span><span class="pill">Free</span>
+          </div>
+        </a>
+
       </div>
     </div>
   </div>
@@ -1738,7 +1823,7 @@
   <!-- ── CRYPTO ── -->
   <div id="crypto" style="margin-bottom:70px;">
     <div class="section-header">
-      <div><div class="section-label">Category 02</div><div class="section-title">Crypto & Financial Sovereignty</div></div>
+      <div><div class="section-label">Category 04</div><div class="section-title">Crypto & Financial Sovereignty</div></div>
       <div class="section-count">04 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-crypto">
@@ -1842,7 +1927,7 @@
   <!-- ── SELF-HOSTING ── -->
   <div id="selfhost" style="margin-bottom:70px;">
     <div class="section-header">
-      <div><div class="section-label">Category 03</div><div class="section-title">Self-Hosting & Infrastructure</div></div>
+      <div><div class="section-label">Category 05</div><div class="section-title">Self-Hosting & Infrastructure</div></div>
       <div class="section-count">06 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-selfhost">
@@ -3158,7 +3243,10 @@ const SOVEREIGN_STEPS = [
     title: 'Run AI locally',
     difficulty: 'diff-medium', diffLabel: 'Medium', time: '20 min',
     desc: 'Every prompt you send to ChatGPT or Gemini is stored and used to train their models. Ollama lets you run powerful language models like Llama 3 and Mistral entirely on your own hardware — no API keys, no usage limits, and no data ever leaves your machine.',
-    tools: [{ icon: '🦙', name: 'Ollama', href: '#localai' }],
+    tools: [
+      { icon: '🦙', name: 'Ollama', href: '#localai' },
+      { icon: '🤖', name: 'LocallyAI', href: '#localai' },
+    ],
   },
 ];
 
