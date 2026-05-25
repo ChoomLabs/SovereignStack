@@ -6,6 +6,16 @@ A curated directory of open-source, decentralized, and privacy-first tools that 
 
 ---
 
+🎯 Interactive Assessment
+
+**How Sovereign Are You?**
+Take the 10-question quiz across browser, email, VPN, and payments. Get a privacy score and a personalized tool stack built for your threat model in under 2 minutes.
+*   **No data collected.**
+*   **Instant results.**
+*   **Personalized recommendations.**
+
+---
+  
 🚀 The Beginner Sovereign Stack
 
 New to privacy? Start here. These five tools form the foundation of a secure, private digital life.
@@ -35,58 +45,16 @@ New to privacy? Start here. These five tools form the foundation of a secure, pr
 📂 Curated Tool Categories
 
 🔒 Category 01: Privacy & Security
-*14 tools available. Essential for protecting your identity and data.*
-
-| Tool | Type | Key Feature |
-| :--- | :--- | :--- |
-| **Bitwarden** | Password Manager | End-to-end encrypted, self-hostable. |
-| **Proton VPN** | VPN | No-logs, Swiss-based, open-source. |
-| **Proton Mail** | Email | Zero-access encryption, Swiss-based. |
-| **Brave Browser** | Private Browser | Ad-blocker built-in, Tor integration. |
-| **Tails OS** | Amnesic OS | Boot from USB, leaves zero trace, Tor-only. |
-| **Mullvad VPN** | VPN | Anonymous signup, accepts cash/Monero. |
-| **DeleteMe** | Data Removal | Continuous removal from data broker sites. |
-| **Signal** | Messaging | No metadata, non-profit, gold standard encryption. |
-| **HaveIBeenPwned** | Breach Monitor | Check if your data was in a leak. |
-| **GrapheneOS** | Android | Hardened, de-googled Android for Pixels. |
-| **SimpleX Chat** | Anonymous Messaging | No user IDs at all. |
-| **uBlock Origin** | Ad Blocker | Lightweight, blocks 90%+ of ads. |
+*Essential for protecting your identity and data.*
 
 🤖 Category 02: Local AI & Offline Tools
 *Run intelligence without sending data to the cloud.*
 
-*   **Ollama:** Run LLMs (Llama 3, Mistral, Qwen) entirely on your hardware. No API keys, no cloud.
-*   **Project N.O.M.A.D.:** A self-contained server bundling Wikipedia, AI, offline maps, and survival guides. Works forever without internet.
-*   **CanIRun.ai:** Instantly check if your hardware can run specific open-source AI models.
-
-### ₿ Category 03: Crypto & Financial Sovereignty
+ ₿ Category 03: Crypto & Financial Sovereignty
 *True financial freedom. Not your keys, not your coins.*
-
-*   **Bitcoin Wallet:** Directory of open-source, self-custodial wallets.
-*   **Sparrow Wallet:** Feature-rich Bitcoin desktop wallet with CoinJoin support.
-*   **Monero:** The leading privacy-focused cryptocurrency (private by default).
-*   **BTCPay Server:** Self-hosted payment processor for Bitcoin and Lightning. No fees, no KYC.
 
 🏠 Category 04: Self-Hosting & Infrastructure
 *Turn your hardware into a private cloud.*
-
-*   **Nextcloud:** Your own Google Drive/Docs/Photos. Sync files without a byte touching a third-party server.
-*   **Jellyfin:** Free, open-source media server for movies and music. No subscriptions.
-*   **Pi-hole:** Network-wide DNS sinkhole to block ads and trackers on every device.
-*   **Umbrel:** One-click home server OS to run Bitcoin nodes, Nextcloud, and AI tools.
-*   **LibreOffice:** Full office suite that runs entirely offline.
-*   **Proxmox VE:** Enterprise-grade virtualization to run VMs and containers.
-*   **Immich:** Blazing-fast self-hosted photo backup (Google Photos alternative).
-
----
-
-🎯 Interactive Assessment
-
-**How Sovereign Are You?**
-Take the 10-question quiz across browser, email, VPN, and payments. Get a privacy score and a personalized tool stack built for your threat model in under 2 minutes.
-*   **No data collected.**
-*   **Instant results.**
-*   **Personalized recommendations.**
 
 This directory is built with **open-source love**. There are no affiliate links, no data selling, and no tracking. We rely on community submissions to keep the list fresh and relevant.
 
@@ -94,5 +62,4 @@ This directory is built with **open-source love**. There are no affiliate links,
 
 *Built for the sovereign web. No ads. No trackers. Just you.*
 
-This project is licensed under the MIT License – a free and open-source license.
-https://github.com/ChoomLabs/SovereignStack?tab=MIT-1-ov-file#
+Copyright (c) 2026 In2voyd
