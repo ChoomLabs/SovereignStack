@@ -1493,6 +1493,34 @@
   <a class="nav-cta" href="#tools">Browse Tools ↗</a>
 </nav>
 
+<div class="search-wrap">
+    <div class="search-inner">
+      <div class="search-row">
+        <div class="search-input-wrap">
+          <span class="search-icon">⌕</span>
+          <input class="search-input" id="search-input" type="text"
+            placeholder="Search tools — Ollama, VPN, Bitcoin, self-host…"
+            oninput="handleSearch()" autocomplete="off" spellcheck="false">
+          <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+          <div class="search-dropdown" id="search-dropdown"></div>
+        </div>
+        <div class="search-result-count" id="search-count"><span id="search-n">27</span> tools</div>
+      </div>
+      <div class="filter-row">
+        <span class="filter-label">Filter:</span>
+        <button class="filter-pill active" data-cat="all"      onclick="setFilter('all')">All</button>
+        <button class="filter-pill"        data-cat="privacy"  onclick="setFilter('privacy')">Privacy</button>
+        <button class="filter-pill"        data-cat="comms"    onclick="setFilter('comms')">Comms</button>
+        <button class="filter-pill"        data-cat="crypto"   onclick="setFilter('crypto')">Crypto</button>
+        <button class="filter-pill"        data-cat="localai"  onclick="setFilter('localai')">Local AI</button>
+        <button class="filter-pill"        data-cat="selfhost" onclick="setFilter('selfhost')">Self-Host</button>
+      </div>
+    </div>
+    <div class="search-no-results" id="search-no-results">
+      No tools match "<span id="search-no-query"></span>" — <button onclick="clearSearch()" style="background:none;border:none;color:var(--neon);cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;">clear search</button>
+    </div>
+  </div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Own your data</div>
@@ -1584,34 +1612,7 @@
   </div>
 
     <!-- ── SEARCH & FILTER BAR ── -->
-  <div class="search-wrap">
-    <div class="search-inner">
-      <div class="search-row">
-        <div class="search-input-wrap">
-          <span class="search-icon">⌕</span>
-          <input class="search-input" id="search-input" type="text"
-            placeholder="Search tools — Ollama, VPN, Bitcoin, self-host…"
-            oninput="handleSearch()" autocomplete="off" spellcheck="false">
-          <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
-          <div class="search-dropdown" id="search-dropdown"></div>
-        </div>
-        <div class="search-result-count" id="search-count"><span id="search-n">27</span> tools</div>
-      </div>
-      <div class="filter-row">
-        <span class="filter-label">Filter:</span>
-        <button class="filter-pill active" data-cat="all"      onclick="setFilter('all')">All</button>
-        <button class="filter-pill"        data-cat="privacy"  onclick="setFilter('privacy')">Privacy</button>
-        <button class="filter-pill"        data-cat="comms"    onclick="setFilter('comms')">Comms</button>
-        <button class="filter-pill"        data-cat="crypto"   onclick="setFilter('crypto')">Crypto</button>
-        <button class="filter-pill"        data-cat="localai"  onclick="setFilter('localai')">Local AI</button>
-        <button class="filter-pill"        data-cat="selfhost" onclick="setFilter('selfhost')">Self-Host</button>
-      </div>
-    </div>
-    <div class="search-no-results" id="search-no-results">
-      No tools match "<span id="search-no-query"></span>" — <button onclick="clearSearch()" style="background:none;border:none;color:var(--neon);cursor:pointer;font-family:'Space Mono',monospace;font-size:12px;">clear search</button>
-    </div>
-  </div>
-
+  
   <!-- ── PRIVACY & SECURITY ── -->
   <div id="privacy" class="tool-section" data-section="privacy" style="margin-bottom:70px;">
     <div class="section-header">
