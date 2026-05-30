@@ -3448,24 +3448,11 @@ const SOVEREIGN_STEPS = [
     </div>
     <div class="suggest-modal-body">
       <p class="suggest-modal-desc">Help us keep SovereignStack ad-free and independent. Donate Bitcoin to support privacy tools curation.</p>
+      <p class="suggest-modal-desc" style="font-size:0.80rem;color:var(--text-dim);margin-top:12px;border-top:1px solid rgba(57,255,20,0.1);padding-top:12px;">⚠️ <strong>Note:</strong> Access this donation page via Tor Browser to support our .onion infrastructure and ensure maximum privacy.</p>
       <style> .btcpay-form { display: inline-flex; align-items: center; justify-content: center; } .btcpay-form--inline { flex-direction: row; } .btcpay-form--block { flex-direction: column; } .btcpay-form--inline .submit { margin-left: 15px; } .btcpay-form--block select { margin-bottom: 10px; } .btcpay-form .btcpay-custom-container{ text-align: center; }.btcpay-custom { display: flex; align-items: center; justify-content: center; } .btcpay-form .plus-minus { cursor:pointer; font-size:25px; line-height: 25px; background: #DFE0E1; height: 30px; width: 45px; border:none; border-radius: 60px; margin: auto 5px; display: inline-flex; justify-content: center; } .btcpay-form select { -moz-appearance: none; -webkit-appearance: none; appearance: none; color: currentColor; background: transparent; border:1px solid transparent; display: block; padding: 1px; margin-left: auto; margin-right: auto; font-size: 11px; cursor: pointer; } .btcpay-form select:hover { border-color: #ccc; } .btcpay-form option { color: #000; background: rgba(0,0,0,.1); } .btcpay-input-price { -moz-appearance: textfield; border: none; box-shadow: none; text-align: center; font-size: 25px; margin: auto; border-radius: 5px; line-height: 35px; background: #fff; }.btcpay-input-price::-webkit-outer-spin-button, .btcpay-input-price::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; } </style>
       <style> input[type=range].btcpay-input-range { -webkit-appearance:none; width:100%; background: transparent; } input[type=range].btcpay-input-range:focus { outline:0; } input[type=range].btcpay-input-range::-webkit-slider-runnable-track { width:100%; height:3.1px; cursor:pointer; box-shadow:0 0 1.7px #020,0 0 0 #003c00; background:#f3f3f3; border-radius:1px; border:0; } input[type=range].btcpay-input-range::-webkit-slider-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; -webkit-appearance:none; margin-top:-9.45px } input[type=range].btcpay-input-range:focus::-webkit-slider-runnable-track { background:#fff; } input[type=range].btcpay-input-range::-moz-range-track { width:100%; height:3.1px; cursor:pointer; box-shadow:0 0 1.7px #020,0 0 0 #003c00; background:#f3f3f3; border-radius:1px; border:0; } input[type=range].btcpay-input-range::-moz-range-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; } input[type=range].btcpay-input-range::-ms-track { width:100%; height:3.1px; cursor:pointer; background:0 0; border-color:transparent; color:transparent; } input[type=range].btcpay-input-range::-ms-fill-lower { background:#e6e6e6; border:0; border-radius:2px; box-shadow:0 0 1.7px #020,0 0 0 #003c00; } input[type=range].btcpay-input-range::-ms-fill-upper { background:#f3f3f3; border:0; border-radius:2px; box-shadow:0 0 1.7px #020,0 0 0 #003c00; } input[type=range].btcpay-input-range::-ms-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; height:3.1px; } input[type=range].btcpay-input-range:focus::-ms-fill-lower { background:#f3f3f3; } input[type=range].btcpay-input-range:focus::-ms-fill-upper { background:#fff; } </style>
-      <form method="POST" action="http://vvihtlq5vxvml3recze6v4nsfj4xa5kplqefsxvqmmrvts7hha7ersad.onion/api/v1/invoices" class="btcpay-form btcpay-form--block">
-        <input type="hidden" name="storeId" value="J48nAenunm2z6iGoRfZJZQVo7ZNGv1L2A3FvfAXy74pF" />
-        <input type="hidden" name="serverIpn" value="http://100.67.74.75/ipn-listener" />
-        <input type="hidden" name="browserRedirect" value="https://choomlabs.github.io/SovereignStack/" />
-        <input type="hidden" name="notifyEmail" value="satpay.hurray926@slmail.me" />
-        <div class="btcpay-custom-container">
-          <input class="btcpay-input-price" type="number" name="price" min="0" max="1" step="0.01" value="0.01" data-price="0.01" style="width:146px;" />
-          <select name="currency">
-            <option value="USD">USD</option>
-            <option value="GBP">GBP</option>
-            <option value="EUR">EUR</option>
-            <option value="BTC" selected>BTC</option>
-          </select>
-          <input type="range" class="btcpay-input-range" min="0" max="1" step="0.01" value="0.01" style="width:146px;margin-bottom:15px;" />
-        </div>
-        <input type="image" class="submit" name="submit" src="http://vvihtlq5vxvml3recze6v4nsfj4xa5kplqefsxvqmmrvts7hha7ersad.onion/img/paybutton/pay.svg" style="width:146px" alt="Pay with BTCPay Server, a Self-Hosted Bitcoin Payment Processor">
+      <form method="POST" action="http://vvihtlq5vxvml3recze6v4nsfj4xa5kplqefsxvqmmrvts7hha7ersad.onion/apps/Gb1fwUFUp9wEE3ohqJ9dygC8NHj/pos">
+        <button type="submit" name="choiceKey" value="green-tea" class="form-submit-btn" style="width:auto;margin:0 auto;display:block;">₿ Donate Bitcoin</button>
       </form>
     </div>
   </div>
