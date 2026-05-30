@@ -2374,117 +2374,10 @@
     </div>
     <span class="footer-note">SovereignStack — A community directory. No affiliate links.</span>
   </div>
-  <span class="footer-note">Built with open-source love · <button class="suggest-btn" onclick="openSuggest()">+ Suggest a Tool</button></span>
+  <span class="footer-note">Built with open-source love · <button class="suggest-btn" onclick="openDonate()">₿ Support</button></span>
 </footer>
 
-<!-- ── SUGGEST A TOOL MODAL ── -->
-<div class="suggest-overlay" id="suggest-overlay" onclick="handleSuggestOverlay(event)">
-  <div class="suggest-modal" id="suggest-modal">
-    <div class="suggest-modal-top-bar"></div>
 
-    <!-- Form panel -->
-    <div id="suggest-form-panel">
-      <div class="suggest-modal-header">
-        <div class="suggest-modal-title-wrap">
-          <div class="suggest-modal-eyebrow">Community Submission</div>
-          <div class="suggest-modal-title">Suggest a Tool</div>
-        </div>
-        <button class="suggest-modal-close" onclick="closeSuggest()">✕</button>
-      </div>
-
-      <div class="suggest-modal-body">
-        <p class="suggest-modal-desc">
-          Know a tool that belongs here? Submit it below and we'll review it for the directory.
-          We only list open-source, privacy-respecting, or decentralized tools.
-          Powered by <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a> — no account needed.
-        </p>
-
-        <div id="suggest-form-el">
-
-          <div class="form-row">
-            <div class="form-group" id="fg-name">
-              <label class="form-label">Tool Name <span class="req">*</span></label>
-              <input class="form-input" id="f-name" type="text" placeholder="e.g. Nextcloud" maxlength="80" autocomplete="off">
-              <div class="form-error-msg">Please enter the tool name.</div>
-            </div>
-            <div class="form-group" id="fg-url">
-              <label class="form-label">Website URL <span class="req">*</span></label>
-              <input class="form-input" id="f-url" type="url" placeholder="https://example.com" autocomplete="off">
-              <div class="form-error-msg">Please enter a valid URL.</div>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group" id="fg-category">
-              <label class="form-label">Category <span class="req">*</span></label>
-              <select class="form-select" id="f-category">
-                <option value="" disabled selected>Select a category…</option>
-                <option>Privacy & Security</option>
-                <option>Local AI & Offline Tools</option>
-                <option>Crypto & Financial Sovereignty</option>
-                <option>Self-Hosting & Infrastructure</option>
-                <option>Other / New Category</option>
-              </select>
-              <div class="form-error-msg">Please select a category.</div>
-            </div>
-            <div class="form-group">
-              <label class="form-label">License</label>
-              <select class="form-select" id="f-license">
-                <option value="" disabled selected>License type…</option>
-                <option>Open Source (MIT, GPL, Apache…)</option>
-                <option>Source Available</option>
-                <option>Proprietary / Closed Source</option>
-                <option>Unknown</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group" id="fg-desc">
-            <label class="form-label">Why does this belong here? <span class="req">*</span></label>
-            <textarea class="form-textarea" id="f-desc" placeholder="Describe what the tool does, why it's privacy-respecting or decentralized, and what makes it worth adding to SovereignStack…" maxlength="600"></textarea>
-            <div class="form-hint" id="f-desc-count">0 / 600</div>
-            <div class="form-error-msg">Please add a description (min 20 characters).</div>
-          </div>
-
-          <div class="form-divider"></div>
-
-          <div class="form-group">
-            <label class="form-label">Your Name / Handle <span style="color:var(--text-dim);font-weight:400;">(optional)</span></label>
-            <input class="form-input" id="f-submitter" type="text" placeholder="Anonymous is fine" maxlength="60" autocomplete="off">
-          </div>
-
-          <div class="form-group" id="fg-email">
-            <label class="form-label">Your Email <span style="color:var(--text-dim);font-weight:400;">(optional — only for follow-up)</span></label>
-            <input class="form-input" id="f-email" type="email" placeholder="you@proton.me" autocomplete="off">
-            <div class="form-hint">Never shared, never stored beyond this submission.</div>
-            <div class="form-error-msg">Please enter a valid email address.</div>
-          </div>
-
-          <div class="form-submit-row">
-            <div class="form-privacy-note">
-              Submissions are reviewed manually.<br>
-              No spam, no data sold — ever.
-            </div>
-            <button class="form-submit-btn" id="suggest-submit-btn" onclick="submitSuggest()">
-              <span id="suggest-btn-label">Submit Tool</span>
-              <span id="suggest-btn-icon">→</span>
-            </button>
-          </div>
-
-        </div><!-- /suggest-form-el -->
-      </div>
-    </div><!-- /form panel -->
-
-    <!-- Success panel -->
-    <div class="suggest-success" id="suggest-success">
-      <div class="suggest-success-icon">✓</div>
-      <div class="suggest-success-title">Submission received!</div>
-      <p class="suggest-success-sub">Thanks for contributing to SovereignStack. We review every suggestion manually and will add qualifying tools in the next update.</p>
-      <button class="suggest-success-close" onclick="closeSuggest()">Close</button>
-    </div>
-
-  </div>
-</div>
 
 <script>
 (function () {
@@ -3191,179 +3084,7 @@ document.addEventListener('keydown', e => {
 });
 </script>
 
-<script>
-/* ── SUGGEST A TOOL FORM ────────────────────────────────────────────── */
 
-// !! SETUP: Create a free form at https://formspree.io, then paste your
-//    form endpoint ID below (the part after formspree.io/f/).
-//    It takes about 60 seconds — no account password required.
-const FORMSPREE_ID = 'YOUR_FORM_ID';
-
-function openSuggest() {
-  const overlay = document.getElementById('suggest-overlay');
-  // Reset to form view each time
-  document.getElementById('suggest-form-panel').style.display = '';
-  document.getElementById('suggest-success').classList.remove('show');
-  clearSuggestForm();
-  overlay.classList.add('open');
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('f-name').focus(), 350);
-}
-
-function closeSuggest() {
-  document.getElementById('suggest-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function handleSuggestOverlay(e) {
-  if (e.target === document.getElementById('suggest-overlay')) closeSuggest();
-}
-
-// Live character counter for description
-document.addEventListener('DOMContentLoaded', () => {
-  const textarea = document.getElementById('f-desc');
-  const counter  = document.getElementById('f-desc-count');
-  if (textarea && counter) {
-    textarea.addEventListener('input', () => {
-      counter.textContent = `${textarea.value.length} / 600`;
-    });
-  }
-});
-
-// Field-level validation helpers
-function validateField(inputId, groupId, testFn) {
-  const el = document.getElementById(inputId);
-  const fg = document.getElementById(groupId);
-  const ok = testFn(el.value.trim());
-  el.classList.toggle('error', !ok);
-  fg.classList.toggle('has-error', !ok);
-  return ok;
-}
-
-function isValidUrl(str) {
-  try { const u = new URL(str); return u.protocol === 'http:' || u.protocol === 'https:'; }
-  catch { return false; }
-}
-
-function isValidEmail(str) {
-  return !str || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
-}
-
-function validateAll() {
-  const a = validateField('f-name',     'fg-name',     v => v.length > 0);
-  const b = validateField('f-url',      'fg-url',      v => isValidUrl(v));
-  const c = validateField('f-category', 'fg-category', v => v.length > 0);
-  const d = validateField('f-desc',     'fg-desc',     v => v.length >= 20);
-  const e = validateField('f-email',    'fg-email',    v => isValidEmail(v));
-  return a && b && c && d && e;
-}
-
-// Add inline validation on blur for each field
-['f-name','f-url','f-category','f-desc','f-email'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const groupId = 'fg-' + id.replace('f-','');
-  el.addEventListener('blur', () => {
-    if (id === 'f-url')      validateField(id, groupId, v => !v || isValidUrl(v));
-    else if (id === 'f-email') validateField(id, groupId, v => isValidEmail(v));
-    else if (id === 'f-desc')  validateField(id, groupId, v => !v || v.length >= 20);
-    else if (id === 'f-name' || id === 'f-category') {
-      const el2 = document.getElementById(id);
-      if (el2.value.trim()) {
-        el2.classList.remove('error');
-        document.getElementById(groupId)?.classList.remove('has-error');
-      }
-    }
-  });
-});
-
-function clearSuggestForm() {
-  ['f-name','f-url','f-desc','f-submitter','f-email'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = '';
-  });
-  const sel = document.getElementById('f-category');
-  if (sel) sel.selectedIndex = 0;
-  const sel2 = document.getElementById('f-license');
-  if (sel2) sel2.selectedIndex = 0;
-  document.querySelectorAll('#suggest-form-el .error').forEach(el => el.classList.remove('error'));
-  document.querySelectorAll('#suggest-form-el .has-error').forEach(el => el.classList.remove('has-error'));
-  const counter = document.getElementById('f-desc-count');
-  if (counter) counter.textContent = '0 / 600';
-}
-
-async function submitSuggest() {
-  if (!validateAll()) return;
-
-  if (FORMSPREE_ID === 'YOUR_FORM_ID') {
-    // Dev mode — show success without actually submitting
-    showSuggestSuccess();
-    return;
-  }
-
-  const btn   = document.getElementById('suggest-submit-btn');
-  const label = document.getElementById('suggest-btn-label');
-  const icon  = document.getElementById('suggest-btn-icon');
-
-  btn.disabled  = true;
-  label.textContent = 'Sending…';
-  icon.textContent  = '⏳';
-
-  const payload = {
-    tool_name:    document.getElementById('f-name').value.trim(),
-    website:      document.getElementById('f-url').value.trim(),
-    category:     document.getElementById('f-category').value,
-    license:      document.getElementById('f-license').value || 'Not specified',
-    description:  document.getElementById('f-desc').value.trim(),
-    submitted_by: document.getElementById('f-submitter').value.trim() || 'Anonymous',
-    email:        document.getElementById('f-email').value.trim() || 'Not provided',
-    _subject:     `SovereignStack tool suggestion: ${document.getElementById('f-name').value.trim()}`,
-  };
-
-  try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method:  'POST',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload),
-    });
-
-    if (res.ok) {
-      showSuggestSuccess();
-    } else {
-      const data = await res.json().catch(() => ({}));
-      throw new Error(data.error || `Server error ${res.status}`);
-    }
-  } catch (err) {
-    label.textContent = 'Try again';
-    icon.textContent  = '↻';
-    btn.disabled = false;
-    // Show inline error message
-    const existingErr = document.getElementById('suggest-send-error');
-    if (existingErr) existingErr.remove();
-    const errDiv = document.createElement('div');
-    errDiv.id = 'suggest-send-error';
-    errDiv.style.cssText = "font-family:'Space Mono',monospace;font-size:10px;color:#ff5555;margin-top:10px;text-align:right;";
-    errDiv.textContent = `Submission failed: ${err.message}`;
-    document.querySelector('.form-submit-row').after(errDiv);
-  }
-}
-
-function showSuggestSuccess() {
-  document.getElementById('suggest-form-panel').style.display = 'none';
-  document.getElementById('suggest-success').classList.add('show');
-  // Reset button for next time
-  document.getElementById('suggest-btn-label').textContent = 'Submit Tool';
-  document.getElementById('suggest-btn-icon').textContent  = '→';
-  document.getElementById('suggest-submit-btn').disabled   = false;
-}
-
-// Close on Escape
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && document.getElementById('suggest-overlay').classList.contains('open')) {
-    closeSuggest();
-  }
-});
-</script>
 
 <script>
 /* ── SOVEREIGN STEPS — shared data for quiz + beginner stack ─────────
@@ -3714,5 +3435,115 @@ const SOVEREIGN_STEPS = [
   };
 })();
 </script>
-</body>
-</html>
+<!-- ── DONATE MODAL ── -->
+<div class="suggest-overlay" id="donate-overlay" onclick="handleDonateOverlay(event)">
+  <div class="suggest-modal" id="donate-modal">
+    <div class="suggest-modal-top-bar"></div>
+    <div class="suggest-modal-header">
+      <div class="suggest-modal-title-wrap">
+        <div class="suggest-modal-eyebrow">Support SovereignStack</div>
+        <div class="suggest-modal-title">Donate Bitcoin</div>
+      </div>
+      <button class="suggest-modal-close" onclick="closeDonate()">✕</button>
+    </div>
+    <div class="suggest-modal-body">
+      <p class="suggest-modal-desc">Help us keep SovereignStack ad-free and independent. Donate Bitcoin to support privacy tools curation.</p>
+      <style> .btcpay-form { display: inline-flex; align-items: center; justify-content: center; } .btcpay-form--inline { flex-direction: row; } .btcpay-form--block { flex-direction: column; } .btcpay-form--inline .submit { margin-left: 15px; } .btcpay-form--block select { margin-bottom: 10px; } .btcpay-form .btcpay-custom-container{ text-align: center; }.btcpay-custom { display: flex; align-items: center; justify-content: center; } .btcpay-form .plus-minus { cursor:pointer; font-size:25px; line-height: 25px; background: #DFE0E1; height: 30px; width: 45px; border:none; border-radius: 60px; margin: auto 5px; display: inline-flex; justify-content: center; } .btcpay-form select { -moz-appearance: none; -webkit-appearance: none; appearance: none; color: currentColor; background: transparent; border:1px solid transparent; display: block; padding: 1px; margin-left: auto; margin-right: auto; font-size: 11px; cursor: pointer; } .btcpay-form select:hover { border-color: #ccc; } .btcpay-form option { color: #000; background: rgba(0,0,0,.1); } .btcpay-input-price { -moz-appearance: textfield; border: none; box-shadow: none; text-align: center; font-size: 25px; margin: auto; border-radius: 5px; line-height: 35px; background: #fff; }.btcpay-input-price::-webkit-outer-spin-button, .btcpay-input-price::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; } </style>
+      <style> input[type=range].btcpay-input-range { -webkit-appearance:none; width:100%; background: transparent; } input[type=range].btcpay-input-range:focus { outline:0; } input[type=range].btcpay-input-range::-webkit-slider-runnable-track { width:100%; height:3.1px; cursor:pointer; box-shadow:0 0 1.7px #020,0 0 0 #003c00; background:#f3f3f3; border-radius:1px; border:0; } input[type=range].btcpay-input-range::-webkit-slider-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; -webkit-appearance:none; margin-top:-9.45px } input[type=range].btcpay-input-range:focus::-webkit-slider-runnable-track { background:#fff; } input[type=range].btcpay-input-range::-moz-range-track { width:100%; height:3.1px; cursor:pointer; box-shadow:0 0 1.7px #020,0 0 0 #003c00; background:#f3f3f3; border-radius:1px; border:0; } input[type=range].btcpay-input-range::-moz-range-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; } input[type=range].btcpay-input-range::-ms-track { width:100%; height:3.1px; cursor:pointer; background:0 0; border-color:transparent; color:transparent; } input[type=range].btcpay-input-range::-ms-fill-lower { background:#e6e6e6; border:0; border-radius:2px; box-shadow:0 0 1.7px #020,0 0 0 #003c00; } input[type=range].btcpay-input-range::-ms-fill-upper { background:#f3f3f3; border:0; border-radius:2px; box-shadow:0 0 1.7px #020,0 0 0 #003c00; } input[type=range].btcpay-input-range::-ms-thumb { box-shadow:none; border:2.5px solid #cedc21; height:22px; width:22px; border-radius:50%; background:#0f3723; cursor:pointer; height:3.1px; } input[type=range].btcpay-input-range:focus::-ms-fill-lower { background:#f3f3f3; } input[type=range].btcpay-input-range:focus::-ms-fill-upper { background:#fff; } </style>
+      <form method="POST" action="http://vvihtlq5vxvml3recze6v4nsfj4xa5kplqefsxvqmmrvts7hha7ersad.onion/api/v1/invoices" class="btcpay-form btcpay-form--block">
+        <input type="hidden" name="storeId" value="J48nAenunm2z6iGoRfZJZQVo7ZNGv1L2A3FvfAXy74pF" />
+        <input type="hidden" name="serverIpn" value="http://100.67.74.75/ipn-listener" />
+        <input type="hidden" name="browserRedirect" value="https://choomlabs.github.io/SovereignStack/" />
+        <input type="hidden" name="notifyEmail" value="satpay.hurray926@slmail.me" />
+        <div class="btcpay-custom-container">
+          <input class="btcpay-input-price" type="number" name="price" min="0" max="1" step="0.01" value="0.01" data-price="0.01" style="width:146px;" />
+          <select name="currency">
+            <option value="USD">USD</option>
+            <option value="GBP">GBP</option>
+            <option value="EUR">EUR</option>
+            <option value="BTC" selected>BTC</option>
+          </select>
+          <input type="range" class="btcpay-input-range" min="0" max="1" step="0.01" value="0.01" style="width:146px;margin-bottom:15px;" />
+        </div>
+        <input type="image" class="submit" name="submit" src="http://vvihtlq5vxvml3recze6v4nsfj4xa5kplqefsxvqmmrvts7hha7ersad.onion/img/paybutton/pay.svg" style="width:146px" alt="Pay with BTCPay Server, a Self-Hosted Bitcoin Payment Processor">
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function openDonate() {
+  document.getElementById('donate-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeDonate() {
+  document.getElementById('donate-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleDonateOverlay(e) {
+  if (e.target === document.getElementById('donate-overlay')) closeDonate();
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && document.getElementById('donate-overlay').classList.contains('open')) {
+    closeDonate();
+  }
+});
+
+// BTCPay slider/input handlers
+function handleSliderChange(event) {
+  event.preventDefault();
+  const root = event.target.closest('.btcpay-form');
+  const el = root.querySelector('.btcpay-input-price');
+  const price = parseFloat(el.value);
+  const min = parseFloat(event.target.getAttribute('min')) || 0.01;
+  const max = parseFloat(event.target.getAttribute('max'));
+  if (price < min) {
+    el.value = min;
+  } else if (price > max) {
+    el.value = max;
+  }
+  root.querySelector('.btcpay-input-range').value = el.value;
+}
+
+function handleSliderInput(event) {
+  event.target.closest('.btcpay-form').querySelector('.btcpay-input-price').value = event.target.value;
+}
+
+document.querySelectorAll(".btcpay-form .btcpay-input-range").forEach(function(el) {
+  if (!el.dataset.initialized) {
+    el.addEventListener('input', handleSliderInput);
+    el.dataset.initialized = true;
+  }
+});
+
+document.querySelectorAll(".btcpay-form .btcpay-input-price").forEach(function(el) {
+  if (!el.dataset.initialized) {
+    el.addEventListener('change', handleSliderChange);
+    el.dataset.initialized = true;
+  }
+});
+
+function handlePriceInput(event) {
+  event.preventDefault();
+  const root = event.target.closest('.btcpay-form');
+  const price = parseFloat(event.target.dataset.price);
+  if (isNaN(event.target.value)) root.querySelector('.btcpay-input-price').value = price;
+  const min = parseFloat(event.target.getAttribute('min')) || 0.01;
+  const max = parseFloat(event.target.getAttribute('max'));
+  if (event.target.value < min) {
+    event.target.value = min;
+  } else if (event.target.value > max) {
+    event.target.value = max;
+  }
+}
+
+document.querySelectorAll(".btcpay-form .btcpay-input-price").forEach(function(el) {
+  if (!el.dataset.initialized) {
+    el.addEventListener('input', handlePriceInput);
+    el.dataset.initialized = true;
+  }
+});
+</script>
