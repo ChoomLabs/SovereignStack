@@ -1488,7 +1488,7 @@
     <li><a href="#crypto" class="nav-link-cyan">Crypto</a></li>
     <li><a href="#selfhost" class="nav-link-amber">Self-Host</a></li>
     <li><a href="#localai" class="nav-link-violet">Local AI</a></li>
-    <li><a href="#news" style="color:#cc3333;">⚡ News</a></li>
+    <li><a href="#" onclick="openComparison(); return false;" style="color:var(--cyan);">⊟ Compare Tools</a></li>
   </ul>
   <a class="nav-cta" href="#tools">Browse Tools ↗</a>
 </nav>
@@ -2275,7 +2275,154 @@
 
 </div>
 
-<!-- ── NEWS SECTION ── -->
+  <!-- ── FAQ SECTION ── -->
+  <div id="faq" style="position:relative;z-index:1;max-width:1280px;margin:0 auto;padding:0 2rem 80px;scroll-margin-top:80px;">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid rgba(57,255,20,0.2);">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--neon-dim);margin-bottom:8px;">Common Questions</div>
+        <div style="font-size:1.7rem;font-weight:800;letter-spacing:-0.02em;color:var(--text);">FAQ</div>
+      </div>
+      <div style="font-family:'Space Mono',monospace;font-size:11px;color:var(--text-dim);letter-spacing:0.05em;">12 Questions</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      
+      <!-- Q1 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🔒</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Do I really need all these tools?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Start with one. Replace your browser with Brave, add a password manager, then a VPN. Each layer removes a different threat. You don't need everything—just more than you have now.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q2 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">💰</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Will this cost me hundreds of dollars?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">No. Brave, Signal, Bitwarden free tier, uBlock Origin, and Tails OS are all free forever. A VPN like Mullvad is €5/month. Self-hosting Nextcloud costs just electricity on hardware you likely already own.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">⚖️</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Is this legal? Will the government come after me?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Yes, it's legal. Using encryption, VPNs, and privacy tools is lawful in most countries. Using them responsibly (not for illegal activity) is the key. Journalists, activists, and security researchers use these daily without issue.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🐌</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Will using a VPN slow down my internet?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Slightly, but barely noticeable on modern VPNs. Mullvad and Proton VPN are optimized for speed. The slowdown (usually 5-15%) is worth the privacy gain. Tor will be noticeably slower—that's the tradeoff for anonymity.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">👥</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">What if my friends use WhatsApp and I switch to Signal?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Signal works great for one-on-one chats. Tell friends you're switching—many will follow. For group chats, you can exist on both apps. Most people discover they prefer Signal once they try it. Start the migration, don't force it.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🤖</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Can I really run AI locally on my laptop?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Yes. Ollama runs Llama 3 and other models on any modern laptop (16GB+ RAM helps). It won't be as fast as cloud AI, but it's free, private, and requires zero internet. A GPU speeds it up significantly.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">💾</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Self-hosting sounds hard. Is it really for me?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Start simple: Nextcloud, Pi-hole, or Umbrel have one-click installers. You don't need to be a sysadmin. If you can follow a tutorial, you can self-host. The learning curve is worth owning your data.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q8 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🔑</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">What happens if I forget my Bitwarden password?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">It's gone. Bitwarden uses zero-knowledge encryption—even Bitwarden can't recover it. That's why it's E2E encrypted. Write your master password down, store it securely, or use a recovery key. This is a feature, not a bug.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🔍</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Can Google/Apple still track me if I use these tools?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Not easily. A VPN + Brave + uBlock Origin makes tracking very hard. If you also use GrapheneOS or de-Google your phone, you're nearly invisible. Nothing is 100% foolproof, but you go from "fully transparent" to "incredibly difficult to track."</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q10 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">💳</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Is Bitcoin really anonymous?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">No—Bitcoin is pseudonymous. Transactions are public but linked to wallet addresses, not names. If you buy Bitcoin with a credit card, the chain to your identity exists. Monero is truly private by default. For privacy, use Monero or tumble Bitcoin.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q11 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">🛡️</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Do I need to use Tor for everyday browsing?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">No. Tor is overkill for normal use (and slow). Use Brave + Mullvad VPN for everyday privacy. Tor is for when you need anonymity from your ISP, government, or when doing research that could get you in trouble. Most people don't need it daily.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q12 -->
+      <div style="background:rgba(57,255,20,0.03);border:1px solid rgba(57,255,20,0.12);border-radius:10px;padding:24px;cursor:pointer;transition:all 0.2s;" class="faq-item" onclick="toggleFaq(this)">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <span style="font-size:20px;flex-shrink:0;">📱</span>
+          <div style="flex:1;">
+            <div style="font-size:1rem;font-weight:700;color:var(--text);margin-bottom:8px;">Should I switch to a "privacy phone" right now?</div>
+            <div class="faq-answer" style="font-size:0.87rem;color:var(--text-muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height 0.3s;">Not immediately. Use your current phone with Signal, a VPN, and disable location tracking first. Once you've made desktop upgrades, *then* consider GrapheneOS (works on Pixel phones). Gradual migration beats sudden upheaval.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
 <section class="news-section" id="news">
 
   <div class="news-header">
@@ -2374,7 +2521,7 @@
     </div>
     <span class="footer-note">SovereignStack — A community directory. No affiliate links.</span>
   </div>
-  <span class="footer-note">Built with open-source love · <button class="suggest-btn" onclick="openDonate()">₿ Support</button></span>
+  <span class="footer-note">Built with open-source love · <button class="suggest-btn" onclick="openDonate()">₿ Support</button> · <button class="suggest-btn" onclick="openSuggestTool()">+ Suggest Tool</button></span>
 </footer>
 
 
@@ -2738,6 +2885,72 @@
   window.loadNews = loadNews;
   loadNews(false);
 })();
+
+/* ── FAQ TOGGLE ── */
+function toggleFaq(el) {
+  const answer = el.querySelector('.faq-answer');
+  const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+  answer.style.maxHeight = isOpen ? '0px' : answer.scrollHeight + 'px';
+  el.style.background = isOpen ? 'rgba(57,255,20,0.03)' : 'rgba(57,255,20,0.08)';
+  el.style.borderColor = isOpen ? 'rgba(57,255,20,0.12)' : 'rgba(57,255,20,0.3)';
+}
+
+/* ── TOOL COMPARISON ── */
+const COMPARISON_DATA = [
+  { name: 'Bitwarden', cat: 'Password Manager', os: '✓', host: '✓', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'Proton VPN', cat: 'VPN', os: '✓', host: '-', e2e: '✓', free: '~', audit: '✓' },
+  { name: 'Brave', cat: 'Browser', os: '✓', host: '-', e2e: '-', free: '✓', audit: '~' },
+  { name: 'Mullvad VPN', cat: 'VPN', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'DeleteMe', cat: 'Data Removal', os: '-', host: '-', e2e: '-', free: '-', audit: '~' },
+  { name: 'HaveIBeenPwned', cat: 'Breach Monitor', os: '✓', host: '~', e2e: '-', free: '✓', audit: '~' },
+  { name: 'uBlock Origin', cat: 'Ad Blocker', os: '✓', host: '-', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Signal', cat: 'Messaging', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'Proton Mail', cat: 'Email', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'Tuta Mail', cat: 'Email', os: '✓', host: '~', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'SimpleX Chat', cat: 'Messaging', os: '✓', host: '✓', e2e: '✓', free: '✓', audit: '~' },
+  { name: 'Ollama', cat: 'Local AI', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '-' },
+  { name: 'Project N.O.M.A.D.', cat: 'Offline Server', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '-' },
+  { name: 'CanIRun.ai', cat: 'AI Compatibility', os: '-', host: '-', e2e: '-', free: '✓', audit: '-' },
+  { name: 'LocallyAI', cat: 'Local AI', os: '-', host: '-', e2e: '✓', free: '✓', audit: '-' },
+  { name: 'Hermes Agent', cat: 'Local AI', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '-' },
+  { name: 'Bitcoin Wallet', cat: 'Crypto', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '~' },
+  { name: 'Sparrow Wallet', cat: 'Bitcoin Wallet', os: '✓', host: '-', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Monero', cat: 'Privacy Coin', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'BTCPay Server', cat: 'Payments', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Nextcloud', cat: 'Cloud Storage', os: '✓', host: '✓', e2e: '✓', free: '✓', audit: '✓' },
+  { name: 'Tails OS', cat: 'Amnesic OS', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'GrapheneOS', cat: 'Hardened Android', os: '✓', host: '-', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Pi-hole', cat: 'DNS Blocker', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '~' },
+  { name: 'Umbrel', cat: 'Home Server', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '~' },
+  { name: 'LibreOffice', cat: 'Office Suite', os: '✓', host: '-', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Proxmox VE', cat: 'Virtualization', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '~' },
+  { name: 'Immich', cat: 'Photo Backup', os: '✓', host: '✓', e2e: '-', free: '✓', audit: '~' },
+];
+
+function openComparison() {
+  const tbody = document.getElementById('comparison-table-body');
+  tbody.innerHTML = COMPARISON_DATA.map(t => `
+    <tr style="border-bottom:1px solid rgba(57,255,20,0.08);">
+      <td style="padding:10px 12px;font-weight:700;color:var(--neon);">${t.name}</td>
+      <td style="padding:10px 12px;text-align:center;color:var(--text-muted);">${t.cat}</td>
+      <td style="padding:10px 12px;text-align:center;">${t.os}</td>
+      <td style="padding:10px 12px;text-align:center;">${t.host}</td>
+      <td style="padding:10px 12px;text-align:center;">${t.e2e}</td>
+      <td style="padding:10px 12px;text-align:center;">${t.free}</td>
+      <td style="padding:10px 12px;text-align:center;">${t.audit}</td>
+    </tr>`).join('');
+  document.getElementById('comparison-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeComparison() {
+  document.getElementById('comparison-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleComparisonOverlay(e) {
+  if (e.target === document.getElementById('comparison-overlay')) closeComparison();
+}
 </script>
 
 <script>
@@ -3435,7 +3648,61 @@ const SOVEREIGN_STEPS = [
   };
 })();
 </script>
-<!-- ── DONATE MODAL ── -->
+<!-- ── SUGGEST TOOL MODAL ── -->
+<div class="suggest-overlay" id="suggest-tool-overlay" onclick="handleSuggestOverlay(event)">
+  <div class="suggest-modal" id="suggest-tool-modal">
+    <div class="suggest-modal-top-bar"></div>
+    <div class="suggest-modal-header">
+      <div>
+        <div class="suggest-modal-eyebrow">Community Driven</div>
+        <div class="suggest-modal-title">Suggest a Tool</div>
+      </div>
+      <button class="suggest-modal-close" onclick="closeSuggestTool()">✕</button>
+    </div>
+    <div class="suggest-modal-body">
+      <p class="suggest-modal-desc">Found a tool that belongs on SovereignStack? Click below to create a GitHub issue. Your suggestion will be reviewed by our curation team and discussed publicly with the community.</p>
+      <div style="margin-top:20px;padding:16px;background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.15);border-radius:6px;">
+        <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin:0;">All suggestions are transparent and open for discussion on GitHub. We evaluate tools based on privacy, decentralization, self-hosting capability, and active maintenance.</p>
+      </div>
+      <a href="https://github.com/choomlabs/SovereignStack/issues/new?template=suggest-tool.md" target="_blank" class="form-submit-btn" style="width:100%;margin-top:20px;justify-content:center;text-decoration:none;display:flex;">→ Open GitHub Issue</a>
+    </div>
+  </div>
+</div>
+<!-- ── TOOL COMPARISON MODAL ── -->
+<div class="suggest-overlay" id="comparison-overlay" onclick="handleComparisonOverlay(event)">
+  <div class="suggest-modal" id="comparison-modal" style="max-width:1000px;max-height:90vh;overflow:auto;">
+    <div class="suggest-modal-top-bar"></div>
+    <div class="suggest-modal-header">
+      <div>
+        <div class="suggest-modal-eyebrow">Feature Matrix</div>
+        <div class="suggest-modal-title">Tool Comparison</div>
+      </div>
+      <button class="suggest-modal-close" onclick="closeComparison()">✕</button>
+    </div>
+    <div class="suggest-modal-body" style="padding:24px;">
+      <div style="overflow-x:auto;border-radius:8px;border:1px solid rgba(57,255,20,0.15);">
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;">
+          <thead>
+            <tr style="background:rgba(57,255,20,0.06);border-bottom:1px solid rgba(57,255,20,0.15);">
+              <th style="padding:12px;text-align:left;font-weight:700;color:var(--neon);">Tool</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">Category</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">Open Source</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">Self-Hostable</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">E2E Encrypted</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">Free</th>
+              <th style="padding:12px;text-align:center;color:var(--text-muted);">Audited</th>
+            </tr>
+          </thead>
+          <tbody id="comparison-table-body">
+            <!-- Generated by JS -->
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top:20px;font-size:0.80rem;color:var(--text-dim);line-height:1.6;">✓ = Yes · - = No · ~ = Partial. This comparison is not exhaustive; check each tool's docs for full feature details.</p>
+    </div>
+  </div>
+</div>
+
 <div class="suggest-overlay" id="donate-overlay" onclick="handleDonateOverlay(event)">
   <div class="suggest-modal" id="donate-modal">
     <div class="suggest-modal-top-bar"></div>
@@ -3473,9 +3740,29 @@ function handleDonateOverlay(e) {
   if (e.target === document.getElementById('donate-overlay')) closeDonate();
 }
 
+function openSuggestTool() {
+  document.getElementById('suggest-tool-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeSuggestTool() {
+  document.getElementById('suggest-tool-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleSuggestOverlay(e) {
+  if (e.target === document.getElementById('suggest-tool-overlay')) closeSuggestTool();
+}
+
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && document.getElementById('donate-overlay').classList.contains('open')) {
     closeDonate();
+  }
+  if (e.key === 'Escape' && document.getElementById('suggest-tool-overlay').classList.contains('open')) {
+    closeSuggestTool();
+  }
+  if (e.key === 'Escape' && document.getElementById('comparison-overlay').classList.contains('open')) {
+    closeComparison();
   }
 });
 
