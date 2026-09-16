@@ -1523,7 +1523,7 @@
             <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
             <div class="search-dropdown" id="search-dropdown"></div>
           </div>
-          <div class="search-result-count" id="search-count">          <span id="search-n">25</span> tools</div>
+          <div class="search-result-count" id="search-count">          <span id="search-n">26</span> tools</div>
         </div>
         <div class="filter-row">
           <span class="filter-label">Filter:</span>
@@ -1639,10 +1639,10 @@
   <div id="privacy" class="tool-section" data-section="privacy" style="margin-bottom:70px;">
     <div class="section-header">
       <div><div class="section-label">Category 01</div><div class="section-title">Privacy & Security</div></div>
-      <div class="section-count">05 tools</div>
+      <div class="section-count">06 tools</div>
     </div>
     <div class="carousel-controls" data-carousel="c-privacy">
-      <span class="carousel-progress">01 / 05</span>
+      <span class="carousel-progress">01 / 06</span>
       <div class="carousel-dots"></div>
       <button class="carousel-btn" data-dir="prev">←</button>
       <button class="carousel-btn" data-dir="next">→</button>
@@ -1742,6 +1742,25 @@
           </div>
           <div class="card-footer">
             <span class="pill">Browser extension</span><span class="pill">Lightweight</span><span class="pill">Open source</span><span class="pill">Free</span>
+          </div>
+        </a>
+
+        <a class="card" href="https://download.torproject.org/" target="_blank" rel="noopener">
+          <div class="card-top"><div class="card-icon-wrap">🧅</div><span class="card-arrow">↗</span></div>
+          <div class="card-body">
+            <div class="card-name">Tor Browser <span class="card-tag">Anonymity Browser</span></div>
+            <div class="card-url">download.torproject.org</div>
+            <div class="card-desc">The gold standard for online anonymity. Tor Browser routes your traffic through thousands of volunteer-run relays, hiding your location and usage from anyone watching your connection — ISPs, governments, and trackers alike. Download it directly from the official Tor Project mirror to defeat censorship and browse without leaving a trail.</div>
+          </div>
+          <div class="card-stats">
+            <div class="stat"><div class="stat-val">2M+</div><div class="stat-label">Daily users</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">7,000+</div><div class="stat-label">Relays</div></div>
+            <div class="stat-div"></div>
+            <div class="stat"><div class="stat-val">2002</div><div class="stat-label">Founded</div></div>
+          </div>
+          <div class="card-footer">
+            <span class="pill">Anonymous</span><span class="pill">Anti-censorship</span><span class="pill">Open source</span><span class="pill">Free</span>
           </div>
         </a>
 
@@ -2869,6 +2888,7 @@ const COMPARISON_DATA = [
   { name: 'Brave', cat: 'Browser', os: '✓', host: '-', e2e: '-', free: '✓', audit: '~' },
   { name: 'Mullvad VPN', cat: 'VPN', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
   { name: 'uBlock Origin', cat: 'Ad Blocker', os: '✓', host: '-', e2e: '-', free: '✓', audit: '✓' },
+  { name: 'Tor Browser', cat: 'Anonymity Browser', os: '✓', host: '~', e2e: '-', free: '✓', audit: '✓' },
   { name: 'Signal', cat: 'Messaging', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
   { name: 'Proton Mail', cat: 'Email', os: '✓', host: '-', e2e: '✓', free: '✓', audit: '✓' },
   { name: 'Tuta Mail', cat: 'Email', os: '✓', host: '~', e2e: '✓', free: '✓', audit: '✓' },
@@ -3081,7 +3101,7 @@ const LEVELS = [
 ];
 
 const TOOL_MAP = {
-  "tor":        { icon:"🧅", name:"Tor Browser",       url:"https://www.torproject.org", why:"Anonymize your browsing through thousands of volunteer relays." },
+  "tor":        { icon:"🧅", name:"Tor Browser",       url:"https://download.torproject.org/", why:"Anonymize your browsing through thousands of volunteer relays." },
   "bitwarden":  { icon:"🔐", name:"Bitwarden",         url:"https://bitwarden.com",      why:"Stop reusing passwords — generate and store unique ones safely." },
   "proton-vpn": { icon:"🛡️", name:"Proton VPN",        url:"https://protonvpn.com",      why:"Audited, no-logs VPN to hide traffic from your ISP." },
   "proton-mail":{ icon:"✉️", name:"Proton Mail",        url:"https://proton.me/mail",     why:"E2E encrypted email even Proton itself can't read." },
